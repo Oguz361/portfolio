@@ -1,26 +1,86 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ctp-rosewater: #f5e0dc;
+  --ctp-flamingo: #f2cdcd;
+  --ctp-pink: #f5c2e7;
+  --ctp-mauve: #cba6f7;
+  --ctp-red: #f38ba8;
+  --ctp-maroon: #eba0ac;
+  --ctp-peach: #fab387;
+  --ctp-yellow: #f9e2af;
+  --ctp-green: #a6e3a1;
+  --ctp-teal: #94e2d5;
+  --ctp-sky: #89dceb;
+  --ctp-sapphire: #74c7ec;
+  --ctp-blue: #89b4fa;
+  --ctp-lavender: #b4befe;
+  --ctp-text: #cdd6f4;
+  --ctp-subtext1: #bac2de;
+  --ctp-subtext0: #a6adc8;
+  --ctp-overlay2: #9399b2;
+  --ctp-overlay1: #7f849c;
+  --ctp-overlay0: #6c7086;
+  --ctp-surface2: #585b70;
+  --ctp-surface1: #45475a;
+  --ctp-surface0: #313244;
+  --ctp-base: #1e1e2e;
+  --ctp-mantle: #181825;
+  --ctp-crust: #11111b;
+  --ctp-accent: #fab387;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-base: var(--ctp-base);
+  --color-mantle: var(--ctp-mantle);
+  --color-crust: var(--ctp-crust);
+  --color-surface0: var(--ctp-surface0);
+  --color-surface1: var(--ctp-surface1);
+  --color-surface2: var(--ctp-surface2);
+  --color-overlay0: var(--ctp-overlay0);
+  --color-overlay1: var(--ctp-overlay1);
+  --color-overlay2: var(--ctp-overlay2);
+  --color-subtext0: var(--ctp-subtext0);
+  --color-subtext1: var(--ctp-subtext1);
+  --color-ctp-text: var(--ctp-text);
+  --color-accent: var(--ctp-accent);
+  --color-ctp-green: var(--ctp-green);
+  --color-ctp-red: var(--ctp-red);
+  --color-ctp-blue: var(--ctp-blue);
+  --color-ctp-mauve: var(--ctp-mauve);
+  --color-ctp-pink: var(--ctp-pink);
+  --color-ctp-yellow: var(--ctp-yellow);
+  --color-ctp-peach: var(--ctp-peach);
+  --color-ctp-teal: var(--ctp-teal);
+  --color-ctp-sky: var(--ctp-sky);
+  --color-ctp-sapphire: var(--ctp-sapphire);
+  --color-ctp-lavender: var(--ctp-lavender);
+  --color-ctp-flamingo: var(--ctp-flamingo);
+  --color-ctp-rosewater: var(--ctp-rosewater);
+  --color-ctp-maroon: var(--ctp-maroon);
+  --font-sans: var(--font-jetbrains);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+body {
+  background-color: var(--ctp-base);
+  color: var(--ctp-text);
+  font-family: var(--font-jetbrains), monospace;
+  letter-spacing: -0.07em;
+  line-height: 1.2;
+  font-weight: 500;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+::selection {
+  background-color: var(--ctp-accent);
+  color: var(--ctp-base);
 }
