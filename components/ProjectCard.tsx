@@ -1,5 +1,16 @@
-import { Github, ExternalLink } from "lucide-react";
+import { Github, ExternalLink, Tag } from "lucide-react";
 import type { Project } from "@/data/projects";
+
+const TAG_COLORS = [
+  "text-ctp-red",
+  "text-ctp-mauve",
+  "text-ctp-blue",
+  "text-ctp-green",
+  "text-ctp-peach",
+  "text-ctp-teal",
+  "text-ctp-pink",
+  "text-ctp-yellow",
+];
 
 export default function ProjectCard({ project }: { project: Project }) {
   return (
@@ -10,11 +21,12 @@ export default function ProjectCard({ project }: { project: Project }) {
         <p className="flex-1 text-sm leading-relaxed text-subtext0">
           {project.description}
         </p>
-        <div className="flex flex-wrap gap-2">
-          {project.tags.map((tag) => (
+        <div className="flex flex-wrap items-center gap-2">
+          <Tag className="h-4 w-4 text-ctp-text" />
+          {project.tags.map((tag, index) => (
             <span
               key={tag}
-              className="rounded-full bg-surface1 px-2.5 py-0.5 text-xs text-subtext1"
+              className={`rounded-md bg-surface0/60 px-2.5 py-0.5 text-xs font-medium ${TAG_COLORS[index % TAG_COLORS.length]}`}
             >
               {tag}
             </span>
