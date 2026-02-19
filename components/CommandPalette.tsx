@@ -58,7 +58,7 @@ export default function CommandPalette() {
 
   return (
     <div className="font-mono text-base text-subtext0">
-      <span className="text-accent hover:text-accent/40">~</span>
+      <a href="#" className="text-accent hover:text-accent/40">~</a>
       <span className="mx-0.5 inline-flex items-center">/</span>
       {activeSection && (
         <>

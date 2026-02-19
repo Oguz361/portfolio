@@ -12,6 +12,15 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | null>(null);
 
+function hexToRgb(hex: string): string {
+  const h = hex.replace("#", "");
+  return [
+    parseInt(h.substring(0, 2), 16),
+    parseInt(h.substring(2, 4), 16),
+    parseInt(h.substring(4, 6), 16),
+  ].join(", ");
+}
+
 function applyTheme(palette: PaletteName, accent: AccentName) {
   const colors: CatppuccinPalette = palettes[palette];
   const root = document.documentElement;
@@ -21,6 +30,7 @@ function applyTheme(palette: PaletteName, accent: AccentName) {
     root.style.setProperty(`--ctp-${key}`, colors[key]);
   }
   root.style.setProperty("--ctp-accent", colors[accent]);
+  root.style.setProperty("--ctp-accent-rgb", hexToRgb(colors[accent]));
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {

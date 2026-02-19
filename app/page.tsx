@@ -7,9 +7,9 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <div className="mx-auto max-w-6xl px-6 py-8">
+    <div className="mx-auto max-w-6xl px-6 pb-8 md:pb-12">
       <header
-        className="sticky top-0 z-10 flex h-24 items-center justify-between p-5 pb-10 select-none"
+        className="sticky top-0 z-10 flex h-24 items-center justify-between py-5 pb-10 select-none"
         style={{
           backdropFilter: "blur(10px)",
           WebkitBackdropFilter: "blur(10px)",
@@ -20,7 +20,7 @@ export default function Home() {
         <CommandPalette />
         <Navigation />
       </header>
-      <main className="space-y-16">
+      <main className="space-y-16 pt-20 pb-8">
         <Hero />
         <FeaturedProjects />
         <Dashboard />

@@ -28,8 +28,8 @@
   --ctp-mantle: #181825;
   --ctp-crust: #11111b;
   --ctp-accent: #fab387;
+  --ctp-accent-rgb: 250, 179, 135;
 }
-
 @theme inline {
   --color-base: var(--ctp-base);
   --color-mantle: var(--ctp-mantle);
