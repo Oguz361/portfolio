@@ -69,6 +69,7 @@ body {
   letter-spacing: -0.07em;
   line-height: 1.2;
   font-weight: 500;
+  font-size: 19px;
 }
 
 @keyframes blink {

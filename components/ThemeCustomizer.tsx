@@ -14,7 +14,7 @@ export default function ThemeCustomizer() {
   const { palette, accent, setPalette, setAccent } = useTheme();
 
   return (
-    <div className="rounded-xl border border-surface1 bg-surface0 p-5 space-y-4">
+    <div className="rounded-xl border border-surface1 bg-transparent p-5 space-y-4">
       <h3 className="text-sm font-semibold text-ctp-text">Theme</h3>
       <div className="flex flex-wrap gap-2">
         {paletteNames.map((p) => (

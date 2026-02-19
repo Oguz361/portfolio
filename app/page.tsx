@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <div className="mx-auto max-w-6xl px-6 py-8">
-      <header className="flex items-center justify-between pb-12">
+      <header className="flex items-center justify-between pb-28">
         <CommandPalette />
         <Navigation />
       </header>

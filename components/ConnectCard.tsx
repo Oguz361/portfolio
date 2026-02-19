@@ -2,7 +2,7 @@ import { Mail } from "lucide-react";
 
 export default function ConnectCard() {
   return (
-    <div className="flex flex-col items-start gap-4 rounded-xl border border-surface1 bg-surface0 p-5">
+    <div className="flex flex-col items-start gap-4 rounded-xl border border-surface1 bg-transparent p-5">
       <h3 className="text-lg font-semibold text-ctp-text">Let&apos;s Connect</h3>
       <p className="text-sm text-subtext0">
         Interested in working together or just want to say hi? Feel free to

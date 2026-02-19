@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Oguz Kaan | Developer",
+  title: "Oguz Kaan Öztürk | Developer",
   description: "Full-Stack Developer Portfolio",
 };
 
@@ -29,8 +29,8 @@ const FOUC_SCRIPT = `
         ["latte", "frappe", "macchiato", "mocha"].map((name) => [
           name,
           null, // placeholder
-        ])
-      )
+        ]),
+      ),
     )};
     // Inline the full palette data for FOUC prevention
     var data = {

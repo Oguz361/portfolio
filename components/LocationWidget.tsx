@@ -14,7 +14,7 @@ export default function LocationWidget() {
     return () => clearInterval(id);
   }, []);
   return (
-    <div className="flex items-center gap-3 rounded-xl border border-surface1 bg-surface0 p-5">
+    <div className="flex items-center gap-3 rounded-xl border border-surface1 bg-transparent p-5">
       <MapPin className="h-5 w-5 text-accent" />
       <div>
         <p className="text-sm font-medium text-ctp-text">Germany</p>

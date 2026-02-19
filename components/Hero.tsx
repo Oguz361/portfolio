@@ -9,8 +9,8 @@ const socials = [
 export default function Hero() {
   return (
     <section id="about" className="space-y-6">
-      <h1 className="text-4xl font-bold tracking-tight text-ctp-text sm:text-5xl">
-        Hey! I&apos;m <span className="text-accent">Oguz Kaan</span>
+      <h1 className="text-3xl font-extrabold tracking-tight text-ctp-text sm:text-4xl">
+        Hey! I&apos;m <span className="text-accent">Oguz Kaan Öztürk</span>
       </h1>
       <p className="text-lg text-subtext1">
         Full-Stack Developer &amp; Software Engineer
