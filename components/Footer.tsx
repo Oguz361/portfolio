@@ -1,9 +1,8 @@
-import { Github, Linkedin, Twitter } from "lucide-react";
+import { Github, Linkedin } from "lucide-react";
 
 const socials = [
   { icon: Github, href: "https://github.com", label: "GitHub" },
   { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-  { icon: Twitter, href: "https://x.com", label: "X" },
 ];
 
 export default function Footer() {
@@ -24,10 +23,10 @@ export default function Footer() {
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={label}
-              className="rounded-md p-1.5 text-subtext0 transition-colors hover:text-accent"
+              className="flex items-center gap-1.5 rounded-md p-1.5 text-subtext0 transition-colors hover:text-accent"
             >
               <Icon className="h-4 w-4" />
+              <span className="text-sm">{label}</span>
             </a>
           ))}
         </div>

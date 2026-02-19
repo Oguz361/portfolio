@@ -1,68 +1,25 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
-const SECTION_MAP: Record<string, string> = {
-  about: "About",
-  projects: "Projects",
+const PATH_LABELS: Record<string, string> = {
+  "/about": "About",
+  "/projects": "Projects",
+  "/resume": "Resume",
 };
 
 export default function CommandPalette() {
-  const [activeSection, setActiveSection] = useState("");
-
-  useEffect(() => {
-    const sectionIds = Object.keys(SECTION_MAP);
-    const elements = sectionIds
-      .map((id) => document.getElementById(id))
-      .filter(Boolean) as HTMLElement[];
-
-    if (elements.length === 0) return;
-
-    let observedSection = "";
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            observedSection = entry.target.id;
-            break;
-          }
-        }
-
-        // If near the top, always show ~/
-        if (window.scrollY < 100) {
-          setActiveSection("");
-        } else {
-          setActiveSection(observedSection);
-        }
-      },
-      { rootMargin: "-50% 0px -50% 0px" }
-    );
-
-    const handleScroll = () => {
-      if (window.scrollY < 100) {
-        setActiveSection("");
-      } else {
-        setActiveSection(observedSection);
-      }
-    };
-
-    elements.forEach((el) => observer.observe(el));
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  const pathname = usePathname();
+  const label = PATH_LABELS[pathname];
 
   return (
     <div className="font-mono text-base text-subtext0">
-      <a href="#" className="text-accent hover:text-accent/40">~</a>
+      <Link href="/" className="text-accent hover:text-accent/40">~</Link>
       <span className="mx-0.5 inline-flex items-center">/</span>
-      {activeSection && (
+      {label && (
         <>
-          <span>{SECTION_MAP[activeSection]}</span>
+          <span>{label}</span>
           <span className="mx-0.5 inline-flex items-center">/</span>
         </>
       )}

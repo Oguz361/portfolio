@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/lib/ThemeProvider";
+import CommandPalette from "@/components/CommandPalette";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 const jetbrainsMono = JetBrains_Mono({
@@ -65,7 +68,26 @@ export default function RootLayout({
       <body
         className={`${jetbrainsMono.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <div className="mx-auto max-w-6xl px-6 pb-8 md:pb-12">
+            <header
+              className="sticky top-0 z-10 flex h-24 items-center justify-between py-5 pb-10 select-none"
+              style={{
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
+                mask: "linear-gradient(black, black, transparent)",
+                WebkitMask: "linear-gradient(black, black, transparent)",
+              }}
+            >
+              <CommandPalette />
+              <Navigation />
+            </header>
+            <main>{children}</main>
+            <div className="mt-16">
+              <Footer />
+            </div>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

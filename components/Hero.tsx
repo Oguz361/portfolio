@@ -1,9 +1,8 @@
-import { Github, Linkedin, Twitter } from "lucide-react";
+import { Github, Linkedin } from "lucide-react";
 
 const socials = [
   { icon: Github, href: "https://github.com", label: "GitHub" },
   { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-  { icon: Twitter, href: "https://x.com", label: "X" },
 ];
 
 export default function Hero() {
@@ -28,10 +27,10 @@ export default function Hero() {
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={label}
-              className="rounded-lg p-2 text-subtext0 transition-colors hover:bg-surface0 hover:text-accent"
+              className="flex items-center gap-1.5 text-subtext0 transition-colors hover:text-accent"
             >
               <Icon className="h-5 w-5" />
+              <span className="text-sm">{label}</span>
             </a>
           </span>
         ))}
