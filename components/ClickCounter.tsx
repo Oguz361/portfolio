@@ -20,11 +20,11 @@ export default function ClickCounter() {
   return (
     <button
       onClick={handleClick}
-      className="flex items-center gap-3 rounded-xl border border-surface1 bg-transparent p-5 transition-colors hover:border-accent/40 w-full"
+      className="group flex items-center gap-3 rounded-xl border border-surface0 bg-base shadow-lg p-4 transition-colors w-full"
     >
       <MousePointerClick className="h-5 w-5 text-accent" />
       <div className="text-left">
-        <p className="text-sm font-medium text-ctp-text">Click me!</p>
+        <p className="text-sm font-medium text-ctp-text transition-colors group-hover:text-accent">Click me!</p>
         <p className="text-xs text-subtext0">
           you&apos;ve clicked {count} time{count !== 1 ? "s" : ""}
         </p>

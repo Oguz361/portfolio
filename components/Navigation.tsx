@@ -7,7 +7,7 @@ const links = [
 
 export default function Navigation() {
   return (
-    <nav className="flex items-center gap-2 font-mono text-base text-subtext1">
+    <nav className="flex items-center gap-2 font-mono text-sm font-medium tracking-normal text-subtext1">
       {links.map((link) => (
         <a
           key={link.label}

@@ -21,17 +21,19 @@ export default function Hero() {
         with cutting-edge technologies.
       </p>
       <div className="flex items-center gap-3">
-        {socials.map(({ icon: Icon, href, label }) => (
-          <a
-            key={label}
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={label}
-            className="rounded-lg p-2 text-subtext0 transition-colors hover:bg-surface0 hover:text-accent"
-          >
-            <Icon className="h-5 w-5" />
-          </a>
+        {socials.map(({ icon: Icon, href, label }, index) => (
+          <span key={label} className="flex items-center gap-3">
+            {index > 0 && <span className="text-surface1 select-none">·</span>}
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={label}
+              className="rounded-lg p-2 text-subtext0 transition-colors hover:bg-surface0 hover:text-accent"
+            >
+              <Icon className="h-5 w-5" />
+            </a>
+          </span>
         ))}
       </div>
     </section>

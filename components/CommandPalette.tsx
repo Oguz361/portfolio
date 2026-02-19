@@ -56,13 +56,16 @@ export default function CommandPalette() {
     };
   }, []);
 
-  const path = activeSection
-    ? `~/${SECTION_MAP[activeSection]}/`
-    : "~/";
-
   return (
     <div className="font-mono text-base text-subtext0">
-      <span className="text-accent">{path}</span>
+      <span className="text-accent hover:text-accent/40">~</span>
+      <span className="mx-0.5 inline-flex items-center">/</span>
+      {activeSection && (
+        <>
+          <span>{SECTION_MAP[activeSection]}</span>
+          <span className="mx-0.5 inline-flex items-center">/</span>
+        </>
+      )}
       <span className="animate-blink ml-0.5 inline-block w-2 bg-accent text-transparent">_</span>
     </div>
   );

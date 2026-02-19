@@ -3,10 +3,10 @@ import type { Project } from "@/data/projects";
 
 export default function ProjectCard({ project }: { project: Project }) {
   return (
-    <div className="group flex flex-col overflow-hidden rounded-xl border border-surface1 bg-transparent transition-colors hover:border-accent/40">
+    <div className="group flex flex-col overflow-hidden rounded-xl border border-surface0 bg-base shadow-lg transition-colors">
       <div className="aspect-video w-full bg-mantle" />
       <div className="flex flex-1 flex-col gap-3 p-5">
-        <h3 className="text-lg font-semibold text-ctp-text">{project.title}</h3>
+        <h3 className="text-lg font-semibold text-ctp-text transition-colors group-hover:text-accent">{project.title}</h3>
         <p className="flex-1 text-sm leading-relaxed text-subtext0">
           {project.description}
         </p>

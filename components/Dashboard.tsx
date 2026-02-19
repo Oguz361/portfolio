@@ -5,13 +5,18 @@ import ClickCounter from "./ClickCounter";
 
 export default function Dashboard() {
   return (
-    <section className="space-y-4">
-      <h2 className="text-2xl font-bold text-ctp-text">Dashboard</h2>
-      <div className="grid gap-4 sm:grid-cols-2">
-        <ThemeCustomizer />
-        <div className="flex flex-col gap-4">
+    <section>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+        <div className="sm:col-span-2 lg:col-span-1">
+          <ThemeCustomizer />
+        </div>
+        <div className="lg:col-span-1">
           <ConnectCard />
+        </div>
+        <div className="lg:col-span-1">
           <LocationWidget />
+        </div>
+        <div className="lg:col-span-1">
           <ClickCounter />
         </div>
       </div>
