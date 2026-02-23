@@ -4,9 +4,9 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 const PATH_LABELS: Record<string, string> = {
-  "/about": "About",
-  "/projects": "Projects",
-  "/resume": "Resume",
+  "/about": "about",
+  "/projects": "projects",
+  "/resume": "resume",
 };
 
 export default function CommandPalette() {
