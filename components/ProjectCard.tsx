@@ -1,4 +1,5 @@
-import { Github, ExternalLink, Tag } from "lucide-react";
+import { Tag } from "lucide-react";
+import { Terminal, TypingAnimation, AnimatedSpan } from "@/components/ui/terminal";
 import type { Project } from "@/data/projects";
 
 const TAG_COLORS = [
@@ -14,9 +15,23 @@ const TAG_COLORS = [
 
 export default function ProjectCard({ project }: { project: Project }) {
   return (
-    <div className="group flex cursor-pointer flex-col overflow-hidden rounded-xl border border-surface0 bg-base shadow-lg transition-all hover:border-accent">
-      <div className="aspect-video w-full bg-mantle" />
-      <div className="flex flex-1 flex-col gap-3 p-5">
+    <div className="group flex cursor-pointer flex-col overflow-hidden rounded-xl border border-surface0 bg-transparent shadow-lg transition-all hover:border-accent">
+      <div className="relative aspect-[5/3] w-full overflow-hidden bg-transparent">
+        <div className="absolute inset-0 flex items-center justify-center p-4">
+          <Terminal className="h-full w-full border-surface1 bg-mantle">
+            <TypingAnimation>{`> cd ${project.title.toLowerCase()}`}</TypingAnimation>
+            <AnimatedSpan>
+              <span className="text-ctp-green">✔</span> Project loaded
+            </AnimatedSpan>
+            <AnimatedSpan>
+              <span className="text-subtext0">
+                Stack: {project.tags.join(", ")}
+              </span>
+            </AnimatedSpan>
+          </Terminal>
+        </div>
+      </div>
+      <div className="flex flex-1 flex-col gap-4 p-6">
         <h3 className="text-lg font-semibold text-ctp-text transition-colors group-hover:text-accent">{project.title}</h3>
         <p className="flex-1 text-sm leading-relaxed text-subtext0">
           {project.description}
@@ -31,30 +46,6 @@ export default function ProjectCard({ project }: { project: Project }) {
               {tag}
             </span>
           ))}
-        </div>
-        <div className="flex items-center gap-2 pt-1">
-          {project.github && (
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-md p-1.5 text-subtext0 transition-colors hover:bg-surface1 hover:text-accent"
-              aria-label={`${project.title} GitHub`}
-            >
-              <Github className="h-4 w-4" />
-            </a>
-          )}
-          {project.demo && (
-            <a
-              href={project.demo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-md p-1.5 text-subtext0 transition-colors hover:bg-surface1 hover:text-accent"
-              aria-label={`${project.title} demo`}
-            >
-              <ExternalLink className="h-4 w-4" />
-            </a>
-          )}
         </div>
       </div>
     </div>

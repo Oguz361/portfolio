@@ -14,7 +14,7 @@ export default function LocationWidget() {
     return () => clearInterval(id);
   }, []);
   return (
-    <div className="group flex items-center gap-3 rounded-xl border border-surface0 bg-base shadow-lg p-4 transition-all hover:border-accent">
+    <div className="group flex items-center gap-3 rounded-xl border border-surface1 bg-base shadow-lg p-4 transition-all hover:border-accent">
       <MapPin className="h-5 w-5 text-accent" />
       <div>
         <p className="text-sm font-medium text-ctp-text transition-colors group-hover:text-accent">Germany</p>

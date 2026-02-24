@@ -20,7 +20,7 @@ export default function ClickCounter() {
   return (
     <button
       onClick={handleClick}
-      className="group flex items-center gap-3 rounded-xl border border-surface0 bg-base shadow-lg p-4 transition-all hover:border-accent w-full"
+      className="group flex items-center gap-3 rounded-xl border border-surface1 bg-base shadow-lg p-4 transition-all hover:border-accent w-full"
     >
       <MousePointerClick className="h-5 w-5 text-accent" />
       <div className="text-left">
