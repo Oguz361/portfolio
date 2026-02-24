@@ -2,6 +2,25 @@
 
 import { useState, useEffect } from "react";
 import { MapPin } from "lucide-react";
+import { Globe } from "@/components/ui/globe";
+
+const GLOBE_CONFIG = {
+  width: 800,
+  height: 800,
+  onRender: () => {},
+  devicePixelRatio: 2,
+  phi: 1.8,
+  theta: 0.3,
+  dark: 0,
+  diffuse: 0.4,
+  mapSamples: 16000,
+  mapBrightness: 1.2,
+  baseColor: [1, 1, 1] as [number, number, number],
+  markerColor: [0, 0, 0] as [number, number, number],
+  glowColor: [1, 1, 1] as [number, number, number],
+  scale: 1.1,
+  markers: [{ location: [51.1657, 10.4515], size: 0.1 }],
+};
 
 export default function LocationWidget() {
   const [time, setTime] = useState("");
@@ -13,12 +32,20 @@ export default function LocationWidget() {
     const id = setInterval(update, 60000);
     return () => clearInterval(id);
   }, []);
+
   return (
-    <div className="group flex items-center gap-3 rounded-xl border border-surface1 bg-base shadow-lg p-4 transition-all hover:border-accent">
-      <MapPin className="h-5 w-5 text-accent" />
-      <div>
-        <p className="text-sm font-medium text-ctp-text transition-colors group-hover:text-accent">Germany</p>
-        <p className="text-xs text-subtext0">Local time: {time}</p>
+    <div className="group relative flex min-h-[320px] flex-col overflow-hidden rounded-xl border border-surface1 bg-base shadow-lg transition-all hover:border-accent">
+      {/* Globe */}
+      <div className="relative aspect-square w-full translate-y-[50%]">
+        <Globe config={GLOBE_CONFIG as any} />
+      </div>
+      {/* Text-Content */}
+      <div className="flex items-center gap-3 p-4">
+        <MapPin className="h-5 w-5 text-accent" />
+        <div>
+          <p className="text-sm font-medium text-ctp-text transition-colors group-hover:text-accent">Germany</p>
+          <p className="text-xs text-subtext0">Local time: {time}</p>
+        </div>
       </div>
     </div>
   );
