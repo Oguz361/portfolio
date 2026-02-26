@@ -6,6 +6,7 @@ import Link from "next/link";
 const PATH_LABELS: Record<string, string> = {
   "/about": "about",
   "/projects": "projects",
+  "/ctf": "ctf",
   "/resume": "resume",
 };
 
@@ -15,7 +16,9 @@ export default function CommandPalette() {
 
   return (
     <div className="font-mono text-base text-subtext0">
-      <Link href="/" className="text-accent hover:text-accent/40">~</Link>
+      <Link href="/" className="text-accent hover:text-accent/40">
+        ~
+      </Link>
       <span className="mx-0.5 inline-flex items-center">/</span>
       {label && (
         <>
@@ -23,7 +26,9 @@ export default function CommandPalette() {
           <span className="mx-0.5 inline-flex items-center">/</span>
         </>
       )}
-      <span className="animate-blink ml-0.5 inline-block w-2 bg-accent text-transparent">_</span>
+      <span className="animate-blink ml-0.5 inline-block w-2 bg-accent text-transparent">
+        _
+      </span>
     </div>
   );
 }

@@ -1,13 +1,22 @@
 import { Github, Linkedin } from "lucide-react";
 
 const socials = [
-  { icon: Github, href: "https://github.com", label: "GitHub" },
-  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+  { icon: Github, href: "https://github.com/Oguz361", label: "GitHub" },
+  {
+    icon: Linkedin,
+    href: "https://linkedin.com/in/oguz-kaan-oeztuerk",
+    label: "LinkedIn",
+  },
 ];
 
 export default function Footer() {
   return (
     <footer className="border-t border-surface1 py-8">
+      <div
+        dangerouslySetInnerHTML={{
+          __html: "<!-- FLAG{v13w_s0urc3_m4st3r} -->",
+        }}
+      />
       <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
         <div className="flex items-center gap-4 text-sm text-subtext0">
           <span>&copy; {new Date().getFullYear()} Oguz Kaan Öztürk</span>

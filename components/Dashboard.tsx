@@ -2,6 +2,7 @@ import ThemeCustomizer from "./ThemeCustomizer";
 import ConnectCard from "./ConnectCard";
 import LocationWidget from "./LocationWidget";
 import ClickCounter from "./ClickCounter";
+import CTFWidget from "./CTFWidget";
 
 export default function Dashboard() {
   return (
@@ -16,7 +17,8 @@ export default function Dashboard() {
         <div className="lg:col-span-1">
           <LocationWidget />
         </div>
-        <div className="lg:col-span-1">
+        <div className="lg:col-span-1 flex flex-col gap-5 md:gap-6">
+          <CTFWidget />
           <ClickCounter />
         </div>
       </div>

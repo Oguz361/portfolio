@@ -1,13 +1,21 @@
 import { Github, Linkedin } from "lucide-react";
 
 const socials = [
-  { icon: Github, href: "https://github.com", label: "GitHub" },
-  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+  { icon: Github, href: "https://github.com/Oguz361", label: "GitHub" },
+  {
+    icon: Linkedin,
+    href: "https://linkedin.com/in/oguz-kaan-oeztuerk",
+    label: "LinkedIn",
+  },
 ];
 
 export default function Hero() {
   return (
-    <section id="about" className="space-y-6">
+    <section
+      id="about"
+      className="space-y-6"
+      data-info="RkxBR3tiNHMzNjRfZDNjMGQzcn0="
+    >
       <h1 className="text-3xl font-extrabold tracking-tight text-ctp-text sm:text-4xl">
         Hey! I&apos;m <span className="text-accent">Oguz Kaan Öztürk</span>
       </h1>
