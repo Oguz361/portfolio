@@ -211,3 +211,28 @@ body {
 .animate-shake {
   animation: shake 0.4s ease-in-out;
 }
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ctp-base);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ctp-accent);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ctp-accent);
+  filter: brightness(1.15);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ctp-accent) var(--ctp-base);
+}

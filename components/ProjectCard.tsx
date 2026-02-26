@@ -18,7 +18,7 @@ export default function ProjectCard({ project }: { project: Project }) {
     <div className="group flex cursor-pointer flex-col overflow-hidden rounded-xl border border-surface0 bg-transparent shadow-lg transition-all hover:border-accent">
       <div className="relative aspect-[5/3] w-full overflow-hidden bg-transparent">
         <div className="absolute inset-0 flex items-center justify-center p-4">
-          <Terminal className="h-full w-full border-surface1 bg-mantle">
+          <Terminal className="h-full w-full border-surface1 bg-mantle scale-95 transition-transform duration-300 ease-out group-hover:scale-100">
             <TypingAnimation>{`> cd ${project.title.toLowerCase()}`}</TypingAnimation>
             <AnimatedSpan>
               <span className="text-ctp-green">✔</span> Project loaded
@@ -31,7 +31,7 @@ export default function ProjectCard({ project }: { project: Project }) {
           </Terminal>
         </div>
       </div>
-      <div className="flex flex-1 flex-col gap-4 p-6">
+      <div className="flex flex-1 flex-col gap-3 px-4 pt-2 pb-4">
         <h3 className="text-lg font-semibold text-ctp-text transition-colors group-hover:text-accent">{project.title}</h3>
         <p className="flex-1 text-sm leading-relaxed text-subtext0">
           {project.description}
