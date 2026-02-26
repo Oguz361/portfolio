@@ -34,18 +34,18 @@ export default function LocationWidget() {
   }, []);
 
   return (
-    <div className="group relative flex min-h-[320px] flex-col overflow-hidden rounded-xl border border-surface1 bg-base shadow-lg transition-all hover:border-accent">
-      {/* Globe */}
-      <div className="relative aspect-square w-full translate-y-[50%]">
-        <Globe config={GLOBE_CONFIG as any} />
-      </div>
+    <div className="group relative flex min-h-[280px] flex-col overflow-hidden rounded-xl border border-surface1 bg-base shadow-lg transition-all">
       {/* Text-Content */}
       <div className="flex items-center gap-3 p-4">
         <MapPin className="h-5 w-5 text-accent" />
         <div>
-          <p className="text-sm font-medium text-ctp-text transition-colors group-hover:text-accent">Germany</p>
+          <p className="text-sm font-medium text-ctp-text transition-colors group-hover:text-accent">Currently based in Berlin, Germany</p>
           <p className="text-xs text-subtext0">Local time: {time}</p>
         </div>
+      </div>
+      {/* Globe */}
+      <div className="relative aspect-square w-full translate-y-[10%]">
+        <Globe config={GLOBE_CONFIG as any} />
       </div>
     </div>
   );

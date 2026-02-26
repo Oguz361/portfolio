@@ -28,7 +28,7 @@ export default function CTFWidget() {
   return (
     <Link
       href="/ctf"
-      className="group flex flex-col gap-4 rounded-xl border border-surface1 bg-base shadow-lg p-4 transition-all hover:border-accent"
+      className="group flex flex-col gap-4 rounded-xl border border-surface1 bg-base shadow-lg p-4 transition-all"
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">

@@ -90,7 +90,7 @@ export default function CTFChallengeCard({ challenge, index }: Props) {
       className={`group rounded-xl border transition-all duration-300 ${
         solved
           ? "border-ctp-green/50 bg-ctp-green/5"
-          : "border-surface1 bg-base hover:border-accent"
+          : "border-surface1 bg-base"
       } ${shaking ? "animate-shake" : ""}`}
     >
       {/* Header — always visible */}
