@@ -27,7 +27,6 @@ export async function POST(request: NextRequest) {
       { status: 403 }
     );
   } catch {
-    // Empty body or invalid JSON
     return NextResponse.json(
       { hint: "You're speaking my language now. But I need valid JSON with your credentials." },
       { status: 403 }
@@ -35,7 +34,6 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// Handle all other methods
 export async function PUT() {
   return NextResponse.json(
     { hint: "Getting warmer, but that's not quite right either." },

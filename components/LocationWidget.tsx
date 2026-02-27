@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { MapPin } from "lucide-react";
+import { MapPin, Sun, Moon } from "lucide-react";
 import { Globe } from "@/components/ui/globe";
 
 const GLOBE_CONFIG = {
@@ -24,12 +24,30 @@ const GLOBE_CONFIG = {
 
 export default function LocationWidget() {
   const [time, setTime] = useState("");
+  const [isDay, setIsDay] = useState(true);
 
   useEffect(() => {
-    const update = () =>
-      setTime(new Date().toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }));
+    const update = () => {
+      const now = new Date();
+      setTime(
+        now.toLocaleTimeString("de-DE", {
+          timeZone: "Europe/Berlin",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        })
+      );
+      const hour = Number(
+        new Intl.DateTimeFormat("de-DE", {
+          timeZone: "Europe/Berlin",
+          hour: "numeric",
+          hour12: false,
+        }).format(now)
+      );
+      setIsDay(hour >= 6 && hour < 20);
+    };
     update();
-    const id = setInterval(update, 60000);
+    const id = setInterval(update, 1000);
     return () => clearInterval(id);
   }, []);
 
@@ -40,7 +58,12 @@ export default function LocationWidget() {
         <MapPin className="h-5 w-5 text-accent" />
         <div>
           <p className="text-sm font-medium text-ctp-text transition-colors group-hover:text-accent">Currently based in Berlin, Germany</p>
-          <p className="text-xs text-subtext0">Local time: {time}</p>
+          <p className="text-xs text-subtext0 flex items-center gap-1">
+            {isDay
+              ? <Sun className="h-3 w-3 text-yellow-400" />
+              : <Moon className="h-3 w-3 text-blue-300" />}
+            Local time: {time}
+          </p>
         </div>
       </div>
       {/* Globe */}

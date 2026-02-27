@@ -51,11 +51,11 @@ export default function Footer() {
           ))}
           <Sep />
           <Link href="/impressum" className="transition-colors hover:text-accent">
-            Impressum
+            Legal Notice
           </Link>
           <Sep />
           <Link href="/datenschutz" className="transition-colors hover:text-accent">
-            Datenschutzerklärung
+            Privacy Policy
           </Link>
         </div>
       </div>
