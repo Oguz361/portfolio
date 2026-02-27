@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "motion/react";
 import { useTheme } from "@/lib/ThemeProvider";
 import { palettes, paletteNames, accentNames, type PaletteName, type AccentName } from "@/lib/theme";
 
@@ -21,7 +22,7 @@ export default function ThemeCustomizer() {
           <button
             key={p}
             onClick={() => setPalette(p)}
-            className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
+            className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors cursor-pointer ${
               palette === p
                 ? "bg-accent text-base"
                 : "bg-surface1 text-subtext0 hover:text-ctp-text"
@@ -38,11 +39,20 @@ export default function ThemeCustomizer() {
             key={a}
             onClick={() => setAccent(a)}
             title={a}
-            className={`h-6 w-6 rounded-full border-2 transition-transform hover:scale-110 ${
-              accent === a ? "border-ctp-text scale-110" : "border-transparent"
+            className={`relative h-6 w-6 rounded-md transition-transform cursor-pointer hover:scale-110 ${
+              accent === a ? "scale-110" : ""
             }`}
             style={{ backgroundColor: palettes[palette][a] }}
-          />
+          >
+            {accent === a && (
+              <motion.div
+                layoutId="accent-ring"
+                className="absolute -inset-[1px] rounded-md ring-1 pointer-events-none"
+                style={{ '--tw-ring-color': palettes[palette][a] } as React.CSSProperties}
+                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+              />
+            )}
+          </button>
         ))}
       </div>
     </div>
