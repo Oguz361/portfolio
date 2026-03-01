@@ -1,5 +1,3 @@
-"use client";
-
 import figlet from "figlet";
 import smallFont from "figlet/importable-fonts/Small.js";
 import { Tag } from "lucide-react";
@@ -27,14 +25,21 @@ export default function ProjectCard({ project }: { project: Project }) {
     <div className="group flex cursor-pointer flex-col overflow-hidden rounded-xl border border-surface0 bg-transparent shadow-lg transition-all hover:border-accent">
       <div className="relative aspect-[5/4] w-full overflow-hidden bg-transparent">
         <div className="absolute inset-0 flex items-center justify-center p-4">
-          <Terminal className="h-full w-full border-surface1 bg-mantle scale-95 transition-transform duration-300 ease-out group-hover:scale-100">
-            {finalLines.map((line, index) => (
-              <AnimatedSpan key={index} className={ASCII_COLORS[index % ASCII_COLORS.length]}>
-                {line}
-              </AnimatedSpan>
-            ))}
-            <AnimatedSpan className="text-subtext0 mt-1">
+          <Terminal sequence={false} className="h-full w-full border-surface1 bg-mantle scale-95 transition-transform duration-300 ease-out group-hover:scale-100">
+            <AnimatedSpan startOnView>
+              {finalLines.map((line, i) => (
+                <div key={i} className={ASCII_COLORS[i % ASCII_COLORS.length]}>
+                  {line}
+                </div>
+              ))}
+            </AnimatedSpan>
+            <AnimatedSpan startOnView delay={300} className="mt-4">
+              <span className="text-ctp-green">$</span>
+              <span className="text-ctp-text ml-2">cat README.md</span>
+            </AnimatedSpan>
+            <AnimatedSpan startOnView delay={500} className="text-subtext0 mt-1">
               {truncatedDesc}
+              <span className="animate-pulse ml-1 text-ctp-green">█</span>
             </AnimatedSpan>
           </Terminal>
         </div>
