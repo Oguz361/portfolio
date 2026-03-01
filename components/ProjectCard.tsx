@@ -1,38 +1,48 @@
+"use client";
+
+import figlet from "figlet";
+import smallFont from "figlet/importable-fonts/Small.js";
 import { Tag } from "lucide-react";
-import { Terminal, TypingAnimation, AnimatedSpan } from "@/components/ui/terminal";
+import { Terminal, AnimatedSpan } from "@/components/ui/terminal";
 import type { Project } from "@/data/projects";
 
+figlet.parseFont("Small", smallFont);
+
 const TAG_COLORS = [
-  "text-ctp-red",
-  "text-ctp-mauve",
-  "text-ctp-blue",
-  "text-ctp-green",
-  "text-ctp-peach",
-  "text-ctp-teal",
-  "text-ctp-pink",
-  "text-ctp-yellow",
+  "text-ctp-red",   "text-ctp-mauve", "text-ctp-blue",  "text-ctp-green",
+  "text-ctp-peach", "text-ctp-teal",  "text-ctp-pink",  "text-ctp-yellow",
 ];
+const ASCII_COLORS = TAG_COLORS;
 
 export default function ProjectCard({ project }: { project: Project }) {
+  const asciiArt = figlet.textSync(project.title, { font: "Small" });
+  const asciiLines = asciiArt.split("\n").filter((line) => line.trim() !== "");
+  const finalLines = asciiLines.length > 0 ? asciiLines : [project.title];
+  const truncatedDesc =
+    project.description.length > 80
+      ? project.description.slice(0, 77) + "..."
+      : project.description;
+
   return (
     <div className="group flex cursor-pointer flex-col overflow-hidden rounded-xl border border-surface0 bg-transparent shadow-lg transition-all hover:border-accent">
-      <div className="relative aspect-[5/3] w-full overflow-hidden bg-transparent">
+      <div className="relative aspect-[5/4] w-full overflow-hidden bg-transparent">
         <div className="absolute inset-0 flex items-center justify-center p-4">
           <Terminal className="h-full w-full border-surface1 bg-mantle scale-95 transition-transform duration-300 ease-out group-hover:scale-100">
-            <TypingAnimation>{`> cd ${project.title.toLowerCase()}`}</TypingAnimation>
-            <AnimatedSpan>
-              <span className="text-ctp-green">✔</span> Project loaded
-            </AnimatedSpan>
-            <AnimatedSpan>
-              <span className="text-subtext0">
-                Stack: {project.tags.join(", ")}
-              </span>
+            {finalLines.map((line, index) => (
+              <AnimatedSpan key={index} className={ASCII_COLORS[index % ASCII_COLORS.length]}>
+                {line}
+              </AnimatedSpan>
+            ))}
+            <AnimatedSpan className="text-subtext0 mt-1">
+              {truncatedDesc}
             </AnimatedSpan>
           </Terminal>
         </div>
       </div>
       <div className="flex flex-1 flex-col gap-3 px-4 pt-2 pb-4">
-        <h3 className="text-lg font-semibold text-ctp-text transition-colors group-hover:text-accent">{project.title}</h3>
+        <h3 className="text-lg font-semibold text-ctp-text transition-colors group-hover:text-accent">
+          {project.title}
+        </h3>
         <p className="flex-1 text-sm leading-relaxed text-subtext0">
           {project.description}
         </p>
