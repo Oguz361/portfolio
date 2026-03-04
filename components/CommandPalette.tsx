@@ -4,7 +4,6 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 const PATH_LABELS: Record<string, string> = {
-  "/about": "about",
   "/projects": "projects",
   "/ctf": "ctf",
   "/resume": "resume",

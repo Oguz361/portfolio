@@ -1,8 +1,9 @@
 import ThemeCustomizer from "./ThemeCustomizer";
 import ConnectCard from "./ConnectCard";
 import LocationWidget from "./LocationWidget";
-import ClickCounter from "./ClickCounter";
 import CTFWidget from "./CTFWidget";
+import GitHubActivity from "./GitHubActivity";
+import TypingTest from "./TypingTest";
 
 export default function Dashboard() {
   return (
@@ -19,7 +20,10 @@ export default function Dashboard() {
         </div>
         <div className="lg:col-span-1 flex flex-col gap-5 md:gap-6">
           <CTFWidget />
-          <ClickCounter />
+          <GitHubActivity />
+        </div>
+        <div className="sm:col-span-2 lg:col-span-4">
+          <TypingTest />
         </div>
       </div>
     </section>

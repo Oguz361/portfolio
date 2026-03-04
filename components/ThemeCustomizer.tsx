@@ -17,12 +17,12 @@ export default function ThemeCustomizer() {
   return (
     <div className="group rounded-xl border border-surface1 bg-base shadow-lg p-4 space-y-4 transition-all">
       <h3 className="text-sm font-semibold text-ctp-text transition-colors group-hover:text-accent">Theme</h3>
-      <div className="flex flex-wrap gap-2">
+      <div className="grid grid-cols-2 gap-2">
         {paletteNames.map((p) => (
           <button
             key={p}
             onClick={() => setPalette(p)}
-            className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors cursor-pointer ${
+            className={`w-full rounded-lg py-2 text-xs font-medium transition-colors cursor-pointer ${
               palette === p
                 ? "bg-accent text-base"
                 : "bg-surface1 text-subtext0 hover:text-ctp-text"
@@ -33,13 +33,13 @@ export default function ThemeCustomizer() {
         ))}
       </div>
       <h3 className="text-sm font-semibold text-ctp-text">Accent</h3>
-      <div className="flex flex-wrap gap-2">
+      <div className="grid grid-cols-7 gap-1.5 px-2">
         {accentNames.map((a) => (
           <button
             key={a}
             onClick={() => setAccent(a)}
             title={a}
-            className={`relative h-6 w-6 rounded-md transition-transform cursor-pointer hover:scale-110 ${
+            className={`relative aspect-square w-full rounded-md transition-transform cursor-pointer hover:scale-110 ${
               accent === a ? "scale-110" : ""
             }`}
             style={{ backgroundColor: palettes[palette][a] }}
