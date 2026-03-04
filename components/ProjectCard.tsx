@@ -17,8 +17,8 @@ export default function ProjectCard({ project }: { project: Project }) {
   const asciiLines = asciiArt.split("\n").filter((line) => line.trim() !== "");
   const finalLines = asciiLines.length > 0 ? asciiLines : [project.title];
   const truncatedDesc =
-    project.description.length > 80
-      ? project.description.slice(0, 77) + "..."
+    project.description.length > 120
+      ? project.description.slice(0, 117) + "..."
       : project.description;
 
   return (
@@ -34,12 +34,12 @@ export default function ProjectCard({ project }: { project: Project }) {
               ))}
             </AnimatedSpan>
             <AnimatedSpan startOnView delay={300} className="mt-4">
-              <span className="text-ctp-green">$</span>
+              <span className="text-accent">$</span>
               <span className="text-ctp-text ml-2">cat README.md</span>
             </AnimatedSpan>
-            <AnimatedSpan startOnView delay={500} className="text-subtext0 mt-1">
+            <AnimatedSpan startOnView delay={500} className="text-subtext0 mt-1 whitespace-normal break-words">
               {truncatedDesc}
-              <span className="animate-pulse ml-1 text-ctp-green">█</span>
+              <span className="animate-pulse ml-1 text-accent">█</span>
             </AnimatedSpan>
           </Terminal>
         </div>

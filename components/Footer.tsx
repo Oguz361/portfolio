@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Link from "next/link";
 
 const GitHubIcon = ({ className }: { className?: string }) => (
@@ -37,17 +38,19 @@ export default function Footer() {
 
         {/* Rechts: Socials + Legal */}
         <div className="ml-auto flex items-center gap-x-3">
-          {socials.map(({ icon: Icon, href, label }) => (
-            <a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 transition-colors hover:text-accent"
-            >
-              <Icon className="h-4 w-4" />
-              <span>{label}</span>
-            </a>
+          {socials.map(({ icon: Icon, href, label }, index) => (
+            <Fragment key={label}>
+              {index > 0 && <Sep />}
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 transition-colors hover:text-accent"
+              >
+                <Icon className="h-4 w-4" />
+                <span>{label}</span>
+              </a>
+            </Fragment>
           ))}
           <Sep />
           <Link href="/impressum" className="transition-colors hover:text-accent">
