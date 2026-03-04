@@ -1,13 +1,26 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Keyboard, RotateCcw, CheckCircle } from "lucide-react";
+import { motion } from "motion/react";
 
-const PHRASE = "the quick brown fox jumps over the lazy dog";
+const PHRASES = [
+  "any fool can write code that a computer can understand, but good programmers write code that humans can understand",
+  "always first solve the problem clearly in your head, then write the code to make it work",
+  "experience is simply the name we give to our mistakes, and mistakes are how we truly learn",
+  "in order to be truly irreplaceable, one must always be completely different from the rest",
+  "java is to javascript what car is to carpet, they share a name but absolutely nothing else",
+  "talk is cheap, show me the code and let the results speak for themselves in production",
+  "the best error message is the one that never shows up at all in your production environment",
+  "before software can be reusable it first has to be usable by at least one real person",
+  "first make it work, then make it right, and only then think about making it fast enough",
+  "simplicity is the soul of efficiency and the foundation of every great software design",
+];
 
 type Phase = "idle" | "typing" | "done";
 
 export default function TypingTest() {
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const phrase = PHRASES[phraseIndex];
   const [phase, setPhase] = useState<Phase>("idle");
   const [input, setInput] = useState("");
   const [wpm, setWpm] = useState(0);
@@ -25,14 +38,14 @@ export default function TypingTest() {
 
     setInput(value);
 
-    if (value.length >= PHRASE.length) {
+    if (value.length >= phrase.length) {
       const elapsed = (Date.now() - (startTime.current ?? Date.now())) / 1000;
-      const wordsTyped = PHRASE.split(" ").length;
+      const wordsTyped = phrase.split(" ").length;
       const calcWpm = Math.round((wordsTyped / elapsed) * 60);
 
       let correct = 0;
       for (let i = 0; i < value.length; i++) {
-        if (value[i] === PHRASE[i]) correct++;
+        if (value[i] === phrase[i]) correct++;
       }
       const calcAccuracy = Math.round((correct / value.length) * 100);
 
@@ -43,6 +56,11 @@ export default function TypingTest() {
   }
 
   function reset() {
+    setPhraseIndex((prev) => {
+      let next = prev;
+      while (next === prev) next = Math.floor(Math.random() * PHRASES.length);
+      return next;
+    });
     setInput("");
     setPhase("idle");
     setWpm(0);
@@ -51,68 +69,129 @@ export default function TypingTest() {
     setTimeout(() => inputRef.current?.focus(), 0);
   }
 
+  const liveWpm =
+    phase === "typing" && startTime.current
+      ? Math.round(
+          (input.trim().split(/\s+/).filter(Boolean).length /
+            ((Date.now() - startTime.current) / 1000)) *
+            60
+        )
+      : 0;
+
+  const progress = Math.min((input.length / phrase.length) * 100, 100);
+
   return (
-    <div className="flex flex-col gap-4 rounded-xl border border-surface1 bg-base shadow-lg p-4">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Keyboard className="h-4 w-4 text-accent" />
-          <h3 className="text-sm font-semibold text-ctp-text">Typing Speed</h3>
+    <div className="rounded-xl border border-surface1 shadow-lg overflow-hidden">
+      {/* Terminal Chrome Header */}
+      <div className="flex items-center justify-between bg-mantle px-4 py-2.5 border-b border-surface1">
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5">
+            <span className="h-3 w-3 rounded-full bg-ctp-red inline-block" />
+            <span className="h-3 w-3 rounded-full bg-ctp-yellow inline-block" />
+            <span className="h-3 w-3 rounded-full bg-ctp-green inline-block" />
+          </div>
+          <span className="font-mono text-xs text-overlay1">typing-test</span>
         </div>
         {phase !== "idle" && (
           <button
             onClick={reset}
-            className="flex items-center gap-1 text-xs text-subtext0 hover:text-accent transition-colors"
+            className="font-mono text-xs text-subtext0 hover:text-accent transition-colors"
           >
-            <RotateCcw className="h-3 w-3" />
-            reset
+            ↺ reset
           </button>
         )}
       </div>
 
-      {/* Reference text with character coloring */}
-      <div className="font-mono text-sm select-none leading-relaxed">
-        {PHRASE.split("").map((char, i) => {
-          let cls = "text-subtext0";
-          if (i < input.length) {
-            cls = input[i] === char ? "text-ctp-green" : "text-ctp-red";
-          }
-          return (
-            <span key={i} className={cls}>
-              {char}
-            </span>
-          );
-        })}
-      </div>
+      {/* Body */}
+      <div className="bg-mantle p-5">
+        {phase !== "done" ? (
+          <>
+            {/* Text area header row */}
+            <div className="flex items-center justify-between mb-3">
+              <span className="font-mono text-xs text-overlay1 uppercase tracking-widest">
+                phrase
+              </span>
+              {phase === "typing" && (
+                <span className="font-mono text-xs text-overlay1">
+                  ~{liveWpm} wpm
+                </span>
+              )}
+            </div>
 
-      {phase !== "done" ? (
-        <input
-          ref={inputRef}
-          value={input}
-          onChange={(e) => handleChange(e.target.value)}
-          placeholder={phase === "idle" ? "Start typing…" : undefined}
-          spellCheck={false}
-          autoCorrect="off"
-          autoCapitalize="off"
-          className="w-full bg-transparent border-b border-surface1 focus:border-accent outline-none font-mono text-sm text-ctp-text py-1 transition-colors placeholder:text-overlay0"
-        />
-      ) : (
-        <div className="flex items-center gap-4 flex-wrap">
-          <div className="flex items-center gap-1.5">
-            <CheckCircle className="h-4 w-4 text-ctp-green" />
-            <span className="font-mono text-sm font-semibold text-ctp-text">
-              {wpm} WPM
-            </span>
-          </div>
-          <span className="text-sm text-subtext0">{accuracy}% accuracy</span>
-          <button
-            onClick={reset}
-            className="ml-auto flex items-center gap-1.5 rounded-lg border border-surface1 px-3 py-1 text-xs text-subtext0 hover:border-accent hover:text-accent transition-colors"
+            {/* Reference text with character coloring + blinking cursor */}
+            <div className="font-mono text-sm select-none leading-relaxed mb-4">
+              {phrase.split("").map((char, i) => {
+                let cls = "text-subtext0";
+                if (i < input.length) {
+                  cls = input[i] === char ? "text-ctp-green" : "text-ctp-red";
+                }
+                return (
+                  <span key={i}>
+                    <span className={cls}>{char}</span>
+                  </span>
+                );
+              })}
+            </div>
+
+            {/* Progress bar */}
+            <div className="h-0.5 bg-surface2 rounded-full mb-4">
+              <div
+                className="h-full bg-accent rounded-full transition-all duration-75"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+
+            {/* Divider + prompt input */}
+            <div className="pt-3 flex items-center gap-2">
+              <span className="font-mono text-sm text-accent select-none">$</span>
+              <input
+                ref={inputRef}
+                value={input}
+                onChange={(e) => handleChange(e.target.value)}
+                placeholder={phase === "idle" ? "start typing…" : undefined}
+                spellCheck={false}
+                autoCorrect="off"
+                autoCapitalize="off"
+                className="flex-1 bg-transparent outline-none font-mono text-sm text-ctp-text placeholder:text-overlay0"
+              />
+            </div>
+          </>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4 }}
+            className="flex items-center gap-6 flex-wrap"
           >
-            <RotateCcw className="h-3 w-3" />
-            Try again
-          </button>
-        </div>
-      )}
+            <div className="flex flex-col gap-0.5">
+              <span className="font-mono text-2xl font-bold text-ctp-text">
+                {wpm}
+              </span>
+              <span className="text-xs text-subtext0 uppercase tracking-widest">
+                WPM
+              </span>
+            </div>
+            <div className="flex flex-col gap-0.5">
+              <span
+                className={`font-mono text-2xl font-bold ${
+                  accuracy >= 90 ? "text-ctp-green" : "text-accent"
+                }`}
+              >
+                {accuracy}%
+              </span>
+              <span className="text-xs text-subtext0 uppercase tracking-widest">
+                accuracy
+              </span>
+            </div>
+            <button
+              onClick={reset}
+              className="ml-auto font-mono text-xs border border-surface1 rounded-lg px-3 py-1.5 text-subtext0 hover:border-accent hover:text-accent transition-colors"
+            >
+              ↺ try again
+            </button>
+          </motion.div>
+        )}
+      </div>
     </div>
   );
 }
