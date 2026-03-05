@@ -108,8 +108,8 @@ export default async function ProjectDetailPage({
       </div>
 
       {/* About */}
-      <div className="space-y-3">
-        <h2 className="text-2xl font-semibold text-accent border-b border-surface0 pb-2">
+      <div className="max-w-2xl mx-auto w-full space-y-3">
+        <h2 className="text-2xl font-extrabold sm:text-3xl text-accent border-b border-surface0 pb-2">
           {project.title}
         </h2>
         <p className="text-subtext0 leading-relaxed whitespace-pre-line">

@@ -17,10 +17,8 @@ export default function CTFPage() {
 
     updateCount();
 
-    // Listen for localStorage changes from CTFChallengeCard
     window.addEventListener("storage", updateCount);
 
-    // Also poll briefly so same-tab updates are reflected
     const id = setInterval(updateCount, 500);
     return () => {
       window.removeEventListener("storage", updateCount);
@@ -40,10 +38,9 @@ export default function CTFPage() {
           Hack This Portfolio
         </h1>
         <p className="max-w-2xl text-sm text-subtext0 leading-relaxed">
-          Think you&apos;ve got what it takes? There are hidden flags scattered
-          across this site. Find them, decode them, and prove your skills. Each
-          challenge tests a different aspect of web security and developer
-          tools.
+          There are hidden flags scattered across this site. Find them, decode
+          them, and prove your skills. Each challenge tests a different aspect
+          of web security and developer tools.
         </p>
       </section>
 
@@ -92,9 +89,9 @@ export default function CTFPage() {
           </p>
           <p>
             <span className="font-mono text-overlay0 mr-2">&gt;</span>
-            Use your browser&apos;s DevTools, terminal, or any tools you like.
-            Everything you need is on this site — no external brute-forcing
-            required.
+            Your browser&apos;s DevTools is all you need — a terminal or other
+            tools work just as well. All flags live on this site; no external
+            brute-forcing required.
           </p>
           <p>
             <span className="font-mono text-overlay0 mr-2">&gt;</span>

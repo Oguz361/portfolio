@@ -19,12 +19,12 @@ const PHRASES = [
 type Phase = "idle" | "typing" | "done";
 
 export default function TypingTest() {
-  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [phraseIndex, setPhraseIndex] = useState<number | null>(null);
 
   useEffect(() => {
     setPhraseIndex(Math.floor(Math.random() * PHRASES.length));
   }, []);
-  const phrase = PHRASES[phraseIndex];
+  const phrase = PHRASES[phraseIndex ?? 0];
   const [phase, setPhase] = useState<Phase>("idle");
   const [input, setInput] = useState("");
   const [wpm, setWpm] = useState(0);
@@ -61,7 +61,7 @@ export default function TypingTest() {
 
   function reset() {
     setPhraseIndex((prev) => {
-      let next = prev;
+      let next = prev ?? 0;
       while (next === prev) next = Math.floor(Math.random() * PHRASES.length);
       return next;
     });
@@ -123,7 +123,7 @@ export default function TypingTest() {
             </div>
 
             {/* Reference text with character coloring + blinking cursor */}
-            <div className="font-mono text-sm select-none leading-relaxed mb-4">
+            <div className={`font-mono text-sm select-none leading-relaxed mb-4 transition-opacity duration-150 ${phraseIndex === null ? 'opacity-0' : 'opacity-100'}`}>
               {phrase.split("").map((char, i) => {
                 let cls = "text-subtext0";
                 if (i < input.length) {

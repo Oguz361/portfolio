@@ -46,7 +46,7 @@ export default function ProjectCard({ project }: { project: Project }) {
           </Terminal>
         </div>
       </div>
-      <div className="flex flex-1 flex-col gap-3 px-4 pt-2 pb-4">
+      <div className="flex flex-1 flex-col gap-3 px-4 pt-1 pb-4">
         <h3 className="text-lg font-semibold text-ctp-text transition-colors group-hover:text-accent">
           {project.title}
         </h3>

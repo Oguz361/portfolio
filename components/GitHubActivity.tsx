@@ -26,11 +26,11 @@ export default function GitHubActivity() {
       </div>
 
       {loading && (
-        <p className="text-xs text-subtext0 animate-pulse">Loading…</p>
+        <p className="text-sm text-subtext0 animate-pulse">Loading…</p>
       )}
 
       {error && !loading && (
-        <p className="text-xs text-ctp-red">Could not fetch activity.</p>
+        <p className="text-sm text-ctp-red">Could not fetch activity.</p>
       )}
 
       {!loading && !error && (
@@ -38,7 +38,7 @@ export default function GitHubActivity() {
           <span className="font-mono text-4xl font-bold text-accent leading-none">
             {count}
           </span>
-          <span className="text-xs text-subtext0">commits in the last 7 days</span>
+          <span className="text-sm text-subtext0">commits in the last 7 days</span>
         </div>
       )}
     </div>

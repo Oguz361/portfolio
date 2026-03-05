@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { XCircle, Send } from "lucide-react";
 import { type CTFChallenge, type Difficulty, hashFlag } from "@/data/ctf";
 
@@ -86,7 +87,7 @@ export default function CTFChallengeCard({ challenge, index }: Props) {
       {/* Header — always visible */}
       <button
         onClick={() => setExpanded(!expanded)}
-        className="flex w-full items-center gap-4 p-4 text-left"
+        className="flex w-full items-center gap-4 p-4 text-left cursor-pointer"
       >
         {/* Status char */}
         <span
@@ -128,62 +129,84 @@ export default function CTFChallengeCard({ challenge, index }: Props) {
       </button>
 
       {/* Expandable content */}
-      {expanded && (
-        <div className="border-t border-surface1 px-4 pb-4 pt-3 space-y-4">
-          {/* Hint toggle */}
-          <div className="space-y-1">
-            <button
-              onClick={() => setHintVisible((v) => !v)}
-              className="font-mono text-xs text-overlay1 hover:text-subtext0 transition-colors"
-            >
-              {hintVisible ? "# hint ▴" : "# hint ▾"}
-            </button>
-            {hintVisible && (
-              <p className="text-sm text-subtext0 italic pl-2">
-                &quot;{challenge.hint}&quot;
-              </p>
-            )}
-          </div>
-
-          {/* Input or solved message */}
-          {solved ? (
-            <p className="font-mono text-sm text-ctp-green">// solved ✓</p>
-          ) : (
-            <div className="flex gap-2">
-              <div className="relative flex-1 flex items-center">
-                <span className="font-mono text-accent text-sm select-none mr-2">
-                  $
-                </span>
-                <input
-                  type="text"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
-                  placeholder="FLAG{...}"
-                  spellCheck={false}
-                  className={`flex-1 rounded-sm border bg-mantle px-3 py-2 font-mono text-sm text-ctp-text placeholder:text-overlay0 outline-none transition-colors ${
-                    feedback === "error"
-                      ? "border-ctp-red"
-                      : "border-surface1 focus:border-accent"
-                  }`}
-                />
-                {feedback === "error" && (
-                  <div className="absolute right-3 top-1/2 -translate-y-1/2">
-                    <XCircle className="h-4 w-4 text-ctp-red" />
-                  </div>
-                )}
+      <AnimatePresence initial={false}>
+        {expanded && (
+          <motion.div
+            key="content"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="overflow-hidden"
+          >
+            <div className="border-t border-surface1 px-4 pb-4 pt-3 space-y-4">
+              {/* Hint toggle */}
+              <div className="space-y-1">
+                <button
+                  onClick={() => setHintVisible((v) => !v)}
+                  className="font-mono text-xs text-overlay1 hover:text-subtext0 transition-colors cursor-pointer"
+                >
+                  {hintVisible ? "# hint ▴" : "# hint ▾"}
+                </button>
+                <AnimatePresence initial={false}>
+                  {hintVisible && (
+                    <motion.div
+                      key="hint"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.2, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <p className="text-sm text-subtext0 italic pl-2">
+                        &quot;{challenge.hint}&quot;
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
-              <button
-                onClick={handleSubmit}
-                className="flex items-center gap-1.5 rounded-sm bg-accent px-4 py-2 text-sm font-medium text-base transition-opacity hover:opacity-90"
-              >
-                <Send className="h-3.5 w-3.5" />
-                submit
-              </button>
+
+              {/* Input or solved message */}
+              {solved ? (
+                <p className="font-mono text-sm text-ctp-green">// solved ✓</p>
+              ) : (
+                <div className="flex gap-2">
+                  <div className="relative flex-1 flex items-center">
+                    <span className="font-mono text-accent text-sm select-none mr-2">
+                      $
+                    </span>
+                    <input
+                      type="text"
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
+                      placeholder="FLAG{...}"
+                      spellCheck={false}
+                      className={`flex-1 rounded-sm border bg-mantle px-3 py-2 font-mono text-sm text-ctp-text placeholder:text-overlay0 outline-none transition-colors ${
+                        feedback === "error"
+                          ? "border-ctp-red"
+                          : "border-surface1 focus:border-accent"
+                      }`}
+                    />
+                    {feedback === "error" && (
+                      <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                        <XCircle className="h-4 w-4 text-ctp-red" />
+                      </div>
+                    )}
+                  </div>
+                  <button
+                    onClick={handleSubmit}
+                    className="flex items-center gap-1.5 rounded-sm bg-accent px-4 py-2 text-sm font-medium text-base transition-opacity hover:opacity-90 cursor-pointer"
+                  >
+                    <Send className="h-3.5 w-3.5" />
+                    submit
+                  </button>
+                </div>
+              )}
             </div>
-          )}
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -40,7 +40,7 @@ export default function CTFWidget() {
         <ArrowRight className="h-4 w-4 text-overlay1 transition-transform group-hover:translate-x-1 group-hover:text-accent" />
       </div>
 
-      <p className="text-xs text-subtext0 leading-relaxed">
+      <p className="text-sm text-subtext0 leading-relaxed">
         {allSolved
           ? "You've captured every flag. Impressive work!"
           : "Hidden flags are scattered across this site. Can you find them all?"}
@@ -61,7 +61,7 @@ export default function CTFWidget() {
               allSolved ? "text-ctp-yellow" : "text-overlay1"
             }`}
           />
-          <span className="font-mono text-xs text-subtext0">
+          <span className="font-mono text-sm text-subtext0">
             {solvedCount}/{total} flags captured
           </span>
         </div>

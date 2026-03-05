@@ -26,7 +26,7 @@ export default function Navigation() {
           <Link
             key={link.label}
             href={link.href}
-            className="px-3 py-1.5 transition-colors hover:text-accent"
+            className="px-3 py-1.5 transition-colors hover:text-accent cursor-pointer"
           >
             {link.label}
           </Link>
