@@ -151,7 +151,7 @@ body {
 }
 
 .animate-blink {
-  animation: blink 1.5s step-end infinite;
+  animation: blink 2s step-end infinite;
 }
 
 @keyframes pulse-glow {

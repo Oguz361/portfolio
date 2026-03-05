@@ -28,19 +28,21 @@ export default function ProjectCard({ project }: { project: Project }) {
       <div className="relative aspect-[5/4] w-full overflow-hidden bg-transparent">
         <div className="absolute inset-0 flex items-center justify-center p-4">
           <Terminal sequence={false} className="h-full w-full border-surface1 bg-mantle scale-95 transition-transform duration-300 ease-out group-hover:scale-100">
-            <AnimatedSpan startOnView>
-              {finalLines.map((line, i) => (
-                <div key={i} className={ASCII_COLORS[i % ASCII_COLORS.length]}>
-                  {line}
-                </div>
-              ))}
-            </AnimatedSpan>
+            <div className="h-28 overflow-hidden">
+              <AnimatedSpan startOnView>
+                {finalLines.map((line, i) => (
+                  <div key={i} className={ASCII_COLORS[i % ASCII_COLORS.length]}>
+                    {line}
+                  </div>
+                ))}
+              </AnimatedSpan>
+            </div>
             <TypingAnimation startOnView delay={300} className="mt-4 text-ctp-text">
               $ cat README.md
             </TypingAnimation>
             <AnimatedSpan startOnView delay={1300} className="text-subtext0 mt-1 whitespace-normal break-words">
               {truncatedDesc}
-              <span className="animate-pulse ml-1 text-accent">█</span>
+              <span className="animate-pulse text-accent">█</span>
             </AnimatedSpan>
           </Terminal>
         </div>
