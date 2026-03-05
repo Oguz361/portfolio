@@ -51,11 +51,11 @@ export default function Footer() {
             </Fragment>
           ))}
           <Sep />
-          <Link href="/impressum" className="transition-colors hover:text-accent">
+          <Link href="/legal-notice" className="transition-colors hover:text-accent">
             Legal Notice
           </Link>
           <Sep />
-          <Link href="/datenschutz" className="transition-colors hover:text-accent">
+          <Link href="/privacy-policy" className="transition-colors hover:text-accent">
             Privacy Policy
           </Link>
         </div>

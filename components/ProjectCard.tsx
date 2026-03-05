@@ -37,7 +37,7 @@ export default function ProjectCard({ project }: { project: Project }) {
             </AnimatedSpan>
             <AnimatedSpan startOnView delay={300} className="mt-4">
               <span className="flex items-center">
-                <span className="text-accent">$</span>
+                <span className="text-ctp-text">$</span>
                 <span className="text-ctp-text ml-2">cat README.md</span>
               </span>
             </AnimatedSpan>
@@ -48,7 +48,7 @@ export default function ProjectCard({ project }: { project: Project }) {
           </Terminal>
         </div>
       </div>
-      <div className="flex flex-1 flex-col gap-3 px-4 pt-1 pb-4">
+      <div className="flex flex-1 flex-col gap-3 px-[calc(1rem+2.5%)] pt-1 pb-4 group-hover:px-4 transition-[padding-left,padding-right] duration-300 ease-out">
         <h3 className="text-lg font-semibold text-ctp-text transition-colors group-hover:text-accent">
           {project.title}
         </h3>
