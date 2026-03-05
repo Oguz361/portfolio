@@ -19,8 +19,8 @@ export default function ProjectCard({ project }: { project: Project }) {
   const asciiLines = asciiArt.split("\n").filter((line) => line.trim() !== "");
   const finalLines = asciiLines.length > 0 ? asciiLines : [project.title];
   const truncatedDesc =
-    project.description.length > 120
-      ? project.description.slice(0, 117) + "..."
+    project.description.length > 130
+      ? project.description.slice(0, 130).replace(/\s+\S*$/, "") + "…"
       : project.description;
 
   return (

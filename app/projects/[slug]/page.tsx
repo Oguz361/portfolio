@@ -1,7 +1,6 @@
 import figlet from "figlet";
 import smallFont from "figlet/importable-fonts/Small.js";
-import Link from "next/link";
-import { ArrowLeft, Github, CalendarDays } from "lucide-react";
+import { Github, CalendarDays, Tag } from "lucide-react";
 import { Terminal, AnimatedSpan } from "@/components/ui/terminal";
 import { projects } from "@/data/projects";
 import { slugify } from "@/lib/slugify";
@@ -53,15 +52,6 @@ export default async function ProjectDetailPage({
 
   return (
     <section className="space-y-10 pt-20 pb-20">
-      {/* Back link */}
-      <Link
-        href="/projects"
-        className="inline-flex items-center gap-2 text-sm text-subtext0 hover:text-accent transition-colors"
-      >
-        <ArrowLeft className="h-4 w-4" />
-        Back to Projects
-      </Link>
-
       {/* Terminal header */}
       <div className="flex justify-center">
         <Terminal sequence={false} className="border-surface1 bg-mantle w-full max-w-2xl">
@@ -84,7 +74,7 @@ export default async function ProjectDetailPage({
       </div>
 
       {/* Date + GitHub */}
-      <div className="flex items-center gap-4 text-sm text-subtext0">
+      <div className="max-w-2xl mx-auto w-full flex items-center gap-4 text-sm text-subtext0">
         {project.createdAt && (
           <span className="flex items-center gap-1.5">
             <CalendarDays className="h-4 w-4" />
@@ -105,7 +95,8 @@ export default async function ProjectDetailPage({
       </div>
 
       {/* Tags */}
-      <div className="flex flex-wrap gap-2">
+      <div className="max-w-2xl mx-auto w-full flex flex-wrap items-center gap-2">
+        <Tag className="h-4 w-4 text-ctp-text" />
         {project.tags.map((tag, index) => (
           <span
             key={tag}
@@ -118,8 +109,8 @@ export default async function ProjectDetailPage({
 
       {/* About */}
       <div className="space-y-3">
-        <h2 className="text-xl font-semibold text-ctp-text border-b border-surface0 pb-2">
-          About
+        <h2 className="text-2xl font-semibold text-accent border-b border-surface0 pb-2">
+          {project.title}
         </h2>
         <p className="text-subtext0 leading-relaxed whitespace-pre-line">
           {project.longDescription ?? project.description}

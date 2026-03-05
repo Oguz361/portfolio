@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 
 const PHRASES = [
@@ -20,6 +20,10 @@ type Phase = "idle" | "typing" | "done";
 
 export default function TypingTest() {
   const [phraseIndex, setPhraseIndex] = useState(0);
+
+  useEffect(() => {
+    setPhraseIndex(Math.floor(Math.random() * PHRASES.length));
+  }, []);
   const phrase = PHRASES[phraseIndex];
   const [phase, setPhase] = useState<Phase>("idle");
   const [input, setInput] = useState("");
