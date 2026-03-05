@@ -20,7 +20,6 @@ export default function Navigation() {
 
   return (
     <nav className="relative font-mono text-sm font-medium tracking-normal text-subtext1">
-      {/* Desktop links */}
       <div className="hidden md:flex items-center gap-2">
         {links.map((link) => (
           <Link
@@ -33,7 +32,6 @@ export default function Navigation() {
         ))}
       </div>
 
-      {/* Mobile hamburger button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="md:hidden p-2 transition-colors hover:text-accent"
@@ -42,7 +40,6 @@ export default function Navigation() {
         <Menu size={24} />
       </button>
 
-      {/* Mobile sidebar overlay — portaled out of header to avoid mask clipping */}
       {mounted &&
         createPortal(
           <div
@@ -52,19 +49,16 @@ export default function Navigation() {
                 : "opacity-0 pointer-events-none"
             }`}
           >
-            {/* Backdrop */}
             <div
               className="absolute inset-0 backdrop-blur-sm"
               onClick={() => setIsOpen(false)}
             />
 
-            {/* Sidebar panel */}
             <div
               className={`absolute top-0 right-0 h-full w-64 bg-mantle border-l border-surface0 shadow-xl transition-transform duration-300 ${
                 isOpen ? "translate-x-0" : "translate-x-full"
               }`}
             >
-              {/* Header */}
               <div className="flex items-center justify-between h-16 px-4 border-b border-surface0">
                 <span className="text-accent font-mono text-lg font-semibold">
                   Navigation
@@ -78,7 +72,6 @@ export default function Navigation() {
                 </button>
               </div>
 
-              {/* Links */}
               <nav className="p-4">
                 <ul className="space-y-2">
                   {links.map((link) => (

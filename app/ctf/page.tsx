@@ -32,7 +32,6 @@ export default function CTFPage() {
 
   return (
     <div className="space-y-10 pt-20 pb-8">
-      {/* Header */}
       <section className="space-y-4">
         <h1 className="text-3xl font-semibold tracking-tight text-ctp-text">
           Hack This Portfolio
@@ -46,7 +45,6 @@ export default function CTFPage() {
 
       <div className="border-t border-surface0" />
 
-      {/* Progress */}
       <section className="border-l-2 border-accent pl-4 space-y-2">
         <div className="flex items-center justify-between">
           <span className="font-mono text-sm text-overlay0">[flags]</span>
@@ -73,7 +71,6 @@ export default function CTFPage() {
 
       <div className="border-t border-surface0" />
 
-      {/* Rules */}
       <section className="border-l-2 border-surface2 pl-4 space-y-3">
         <h2 className="font-mono font-semibold text-ctp-text">
           <span className="text-overlay0">#</span> rules_of_engagement
@@ -103,7 +100,6 @@ export default function CTFPage() {
 
       <div className="border-t border-surface0" />
 
-      {/* Challenges */}
       <section className="space-y-4">
         {challenges.map((challenge, i) => (
           <CTFChallengeCard

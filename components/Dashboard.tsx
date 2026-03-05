@@ -9,7 +9,6 @@ export default function Dashboard() {
   return (
     <section>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
-        {/* Row 1: small widgets – similar height */}
         <div className="flex flex-col [&>*]:flex-1">
           <ThemeCustomizer />
         </div>
@@ -23,7 +22,6 @@ export default function Dashboard() {
           <GitHubActivity />
         </div>
 
-        {/* Row 2: LocationWidget + TypingTest */}
         <div className="sm:col-span-2 lg:col-span-1 flex flex-col [&>*]:flex-1">
           <LocationWidget />
         </div>

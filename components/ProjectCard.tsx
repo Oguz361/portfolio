@@ -36,8 +36,10 @@ export default function ProjectCard({ project }: { project: Project }) {
               ))}
             </AnimatedSpan>
             <AnimatedSpan startOnView delay={300} className="mt-4">
-              <span className="text-accent">$</span>
-              <span className="text-ctp-text ml-2">cat README.md</span>
+              <span className="flex items-center">
+                <span className="text-accent">$</span>
+                <span className="text-ctp-text ml-2">cat README.md</span>
+              </span>
             </AnimatedSpan>
             <AnimatedSpan startOnView delay={500} className="text-subtext0 mt-1 whitespace-normal break-words">
               {truncatedDesc}

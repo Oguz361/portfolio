@@ -52,7 +52,6 @@ export default async function ProjectDetailPage({
 
   return (
     <section className="space-y-10 pt-20 pb-20">
-      {/* Terminal header */}
       <div className="flex justify-center">
         <Terminal sequence={false} className="border-surface1 bg-mantle w-full max-w-2xl">
           <AnimatedSpan startOnView>
@@ -73,7 +72,6 @@ export default async function ProjectDetailPage({
         </Terminal>
       </div>
 
-      {/* Date + GitHub */}
       <div className="max-w-2xl mx-auto w-full flex items-center gap-4 text-sm text-subtext0">
         {project.createdAt && (
           <span className="flex items-center gap-1.5">
@@ -94,7 +92,6 @@ export default async function ProjectDetailPage({
         )}
       </div>
 
-      {/* Tags */}
       <div className="max-w-2xl mx-auto w-full flex flex-wrap items-center gap-2">
         <Tag className="h-4 w-4 text-ctp-text" />
         {project.tags.map((tag, index) => (
@@ -107,7 +104,6 @@ export default async function ProjectDetailPage({
         ))}
       </div>
 
-      {/* About */}
       <div className="max-w-2xl mx-auto w-full space-y-3">
         <h2 className="text-2xl font-extrabold sm:text-3xl text-accent border-b border-surface0 pb-2">
           {project.title}
@@ -117,7 +113,6 @@ export default async function ProjectDetailPage({
         </p>
       </div>
 
-      {/* Screenshots */}
       {project.screenshots && project.screenshots.length > 0 && (
         <div className="space-y-3">
           <h2 className="text-xl font-semibold text-ctp-text border-b border-surface0 pb-2">

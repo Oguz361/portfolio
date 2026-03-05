@@ -86,7 +86,6 @@ export default function TypingTest() {
 
   return (
     <div className="rounded-xl border border-surface1 shadow-lg overflow-hidden">
-      {/* Terminal Chrome Header */}
       <div className="flex items-center justify-between bg-mantle px-4 py-2.5 border-b border-surface1">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5">
@@ -106,11 +105,9 @@ export default function TypingTest() {
         )}
       </div>
 
-      {/* Body */}
       <div className="bg-mantle p-5">
         {phase !== "done" ? (
           <>
-            {/* Text area header row */}
             <div className="flex items-center justify-between mb-3">
               <span className="font-mono text-xs text-overlay1 uppercase tracking-widest">
                 phrase
@@ -122,7 +119,6 @@ export default function TypingTest() {
               )}
             </div>
 
-            {/* Reference text with character coloring + blinking cursor */}
             <div className={`font-mono text-sm select-none leading-relaxed mb-4 transition-opacity duration-150 ${phraseIndex === null ? 'opacity-0' : 'opacity-100'}`}>
               {phrase.split("").map((char, i) => {
                 let cls = "text-subtext0";
@@ -137,7 +133,6 @@ export default function TypingTest() {
               })}
             </div>
 
-            {/* Progress bar */}
             <div className="h-0.5 bg-surface2 rounded-full mb-4">
               <div
                 className="h-full bg-accent rounded-full transition-all duration-75"
@@ -145,7 +140,6 @@ export default function TypingTest() {
               />
             </div>
 
-            {/* Divider + prompt input */}
             <div className="pt-3 flex items-center gap-2">
               <span className="font-mono text-sm text-accent select-none">$</span>
               <input

@@ -12,8 +12,14 @@ import type { Project } from "@/data/projects";
 figlet.parseFont("Small", smallFont);
 
 const TAG_COLORS = [
-  "text-ctp-red",   "text-ctp-mauve", "text-ctp-blue",  "text-ctp-green",
-  "text-ctp-peach", "text-ctp-teal",  "text-ctp-pink",  "text-ctp-yellow",
+  "text-ctp-red",
+  "text-ctp-mauve",
+  "text-ctp-blue",
+  "text-ctp-green",
+  "text-ctp-peach",
+  "text-ctp-teal",
+  "text-ctp-pink",
+  "text-ctp-yellow",
 ];
 const ASCII_COLORS = TAG_COLORS;
 
@@ -47,7 +53,6 @@ export default function ProjectModal({
 
   return createPortal(
     <>
-      {/* Backdrop */}
       <motion.div
         className="fixed inset-0 z-50 bg-black/60 backdrop-blur-md"
         initial={{ opacity: 0 }}
@@ -56,7 +61,6 @@ export default function ProjectModal({
         onClick={onClose}
       />
 
-      {/* Modal container */}
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
         <motion.div
           className="relative flex flex-col w-full max-w-2xl max-h-[90vh] rounded-2xl border border-surface0 bg-base shadow-2xl pointer-events-auto"
@@ -65,7 +69,6 @@ export default function ProjectModal({
           exit={{ opacity: 0, y: 60 }}
           transition={{ type: "spring", damping: 25, stiffness: 300 }}
         >
-          {/* Close button */}
           <button
             onClick={onClose}
             className="absolute top-4 right-4 z-10 rounded-lg p-1.5 text-subtext0 transition-colors hover:bg-surface0 hover:text-ctp-text"
@@ -74,7 +77,6 @@ export default function ProjectModal({
             <X className="h-5 w-5" />
           </button>
 
-          {/* Hero section — fixed, does not scroll */}
           <div className="flex-shrink-0 flex flex-col gap-4 p-6 pb-4">
             <Terminal
               key={project.title}
@@ -84,14 +86,19 @@ export default function ProjectModal({
             >
               <AnimatedSpan>
                 {finalLines.map((line, i) => (
-                  <div key={i} className={ASCII_COLORS[i % ASCII_COLORS.length]}>
+                  <div
+                    key={i}
+                    className={ASCII_COLORS[i % ASCII_COLORS.length]}
+                  >
                     {line}
                   </div>
                 ))}
               </AnimatedSpan>
               <AnimatedSpan className="mt-4">
-                <span className="text-accent">$</span>
-                <span className="text-ctp-text ml-2">cat README.md</span>
+                <span className="flex items-center">
+                  <span className="text-accent">$</span>
+                  <span className="text-ctp-text ml-2">cat README.md</span>
+                </span>
               </AnimatedSpan>
               <AnimatedSpan className="text-subtext0 mt-1 whitespace-normal break-words">
                 {truncatedDesc}
@@ -100,7 +107,9 @@ export default function ProjectModal({
             </Terminal>
 
             <div className="flex flex-col gap-2">
-              <h1 className="text-2xl font-bold text-ctp-text">{project.title}</h1>
+              <h1 className="text-2xl font-bold text-ctp-text">
+                {project.title}
+              </h1>
               <div className="flex flex-wrap items-center gap-4 text-sm text-subtext0">
                 {project.createdAt && (
                   <span className="flex items-center gap-1.5">
@@ -123,12 +132,9 @@ export default function ProjectModal({
             </div>
           </div>
 
-          {/* Divider */}
           <div className="mx-6 border-t border-surface0" />
 
-          {/* Main section — scrollable */}
           <div className="flex-1 overflow-y-auto p-6 pt-4 flex flex-col gap-4">
-            {/* Tags */}
             <div className="flex flex-wrap items-center gap-2">
               <Tag className="h-4 w-4 text-ctp-text" />
               {project.tags.map((tag, index) => (
@@ -141,7 +147,6 @@ export default function ProjectModal({
               ))}
             </div>
 
-            {/* Long description */}
             <p className="text-sm leading-relaxed text-subtext0">
               {project.longDescription ?? project.description}
             </p>
@@ -149,6 +154,6 @@ export default function ProjectModal({
         </motion.div>
       </div>
     </>,
-    document.body
+    document.body,
   );
 }

@@ -28,7 +28,6 @@ export default function Footer() {
       />
 
       <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-subtext0">
-        {/* Links: Copyright + Status */}
         <span>&copy; {new Date().getFullYear()} Oguz Kaan Öztürk</span>
         <Sep />
         <span className="flex items-center gap-1.5">
@@ -36,7 +35,6 @@ export default function Footer() {
           All Systems Operational
         </span>
 
-        {/* Rechts: Socials + Legal */}
         <div className="ml-auto flex items-center gap-x-3">
           {socials.map(({ icon: Icon, href, label }, index) => (
             <Fragment key={label}>

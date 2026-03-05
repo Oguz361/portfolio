@@ -53,7 +53,6 @@ export default function LocationWidget() {
 
   return (
     <div className="group relative flex min-h-[280px] flex-col overflow-hidden rounded-xl border border-surface1 bg-base shadow-lg transition-all">
-      {/* Text-Content */}
       <div className="flex items-center gap-3 p-4">
         <MapPin className="h-5 w-5 text-accent" />
         <div>
@@ -66,7 +65,6 @@ export default function LocationWidget() {
           </p>
         </div>
       </div>
-      {/* Globe */}
       <div className="relative aspect-square w-full translate-y-[10%]">
         <Globe config={GLOBE_CONFIG as any} />
       </div>
