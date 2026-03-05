@@ -2,7 +2,7 @@ import figlet from "figlet";
 import smallFont from "figlet/importable-fonts/Small.js";
 import { Tag } from "lucide-react";
 import Link from "next/link";
-import { Terminal, AnimatedSpan } from "@/components/ui/terminal";
+import { Terminal, AnimatedSpan, TypingAnimation } from "@/components/ui/terminal";
 import type { Project } from "@/data/projects";
 import { slugify } from "@/lib/slugify";
 
@@ -35,13 +35,10 @@ export default function ProjectCard({ project }: { project: Project }) {
                 </div>
               ))}
             </AnimatedSpan>
-            <AnimatedSpan startOnView delay={300} className="mt-4">
-              <span className="flex items-center">
-                <span className="text-ctp-text">$</span>
-                <span className="text-ctp-text ml-2">cat README.md</span>
-              </span>
-            </AnimatedSpan>
-            <AnimatedSpan startOnView delay={500} className="text-subtext0 mt-1 whitespace-normal break-words">
+            <TypingAnimation startOnView delay={300} className="mt-4 text-ctp-text">
+              $ cat README.md
+            </TypingAnimation>
+            <AnimatedSpan startOnView delay={1300} className="text-subtext0 mt-1 whitespace-normal break-words">
               {truncatedDesc}
               <span className="animate-pulse ml-1 text-accent">█</span>
             </AnimatedSpan>
