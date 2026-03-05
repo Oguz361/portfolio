@@ -1,8 +1,10 @@
 import figlet from "figlet";
 import smallFont from "figlet/importable-fonts/Small.js";
 import { Tag } from "lucide-react";
+import Link from "next/link";
 import { Terminal, AnimatedSpan } from "@/components/ui/terminal";
 import type { Project } from "@/data/projects";
+import { slugify } from "@/lib/slugify";
 
 figlet.parseFont("Small", smallFont);
 
@@ -22,7 +24,7 @@ export default function ProjectCard({ project }: { project: Project }) {
       : project.description;
 
   return (
-    <div className="group flex cursor-pointer flex-col overflow-hidden rounded-xl border border-surface0 bg-transparent shadow-lg transition-all hover:border-accent">
+    <Link href={`/projects/${slugify(project.title)}`} className="group flex cursor-pointer flex-col overflow-hidden rounded-xl border border-surface0 bg-transparent shadow-lg transition-all hover:border-accent">
       <div className="relative aspect-[5/4] w-full overflow-hidden bg-transparent">
         <div className="absolute inset-0 flex items-center justify-center p-4">
           <Terminal sequence={false} className="h-full w-full border-surface1 bg-mantle scale-95 transition-transform duration-300 ease-out group-hover:scale-100">
@@ -63,6 +65,6 @@ export default function ProjectCard({ project }: { project: Project }) {
           ))}
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
