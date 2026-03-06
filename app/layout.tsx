@@ -5,6 +5,7 @@ import CommandPalette from "@/components/CommandPalette";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ConsoleFlag from "@/components/ConsoleFlag";
+import { AnimatePresenceWrapper } from "@/components/AnimatePresenceWrapper";
 import "./globals.css";
 
 const jetbrainsMono = JetBrains_Mono({
@@ -81,7 +82,7 @@ export default function RootLayout({
               <CommandPalette />
               <Navigation />
             </header>
-            <main>{children}</main>
+            <main><AnimatePresenceWrapper>{children}</AnimatePresenceWrapper></main>
             <div className="mt-16">
               <Footer />
             </div>
