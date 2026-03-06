@@ -19,7 +19,7 @@ const GLOBE_CONFIG = {
   markerColor: [0, 0, 0] as [number, number, number],
   glowColor: [1, 1, 1] as [number, number, number],
   scale: 1.1,
-  markers: [{ location: [51.1657, 10.4515], size: 0.1 }],
+  markers: [{ location: [52.52, 13.405], size: 0.1 }],
 };
 
 export default function LocationWidget() {

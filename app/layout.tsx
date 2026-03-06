@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Oguz Kaan Öztürk | Developer",
+  title: "Oguz Kaan Öztürk",
   description: "Full-Stack Developer Portfolio",
 };
 

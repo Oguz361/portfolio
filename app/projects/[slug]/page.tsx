@@ -27,10 +27,10 @@ export async function generateMetadata({
   const project = projects.find((p) => slugify(p.title) === slug);
   if (!project) return { title: "Project Not Found" };
   return {
-    title: `${project.title} | Portfolio`,
+    title: project.title,
     description: project.description,
     openGraph: {
-      title: `${project.title} | Portfolio`,
+      title: project.title,
       description: project.description,
       type: "article",
     },

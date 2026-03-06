@@ -9,7 +9,7 @@ export default function ConnectCard() {
         reach out.
       </p>
       <a
-        href="mailto:hello@example.com"
+        href="mailto:[EMAIL]"
         className="flex w-full items-center justify-center gap-2 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-base transition-opacity hover:opacity-90"
       >
         <Mail className="h-4 w-4" />

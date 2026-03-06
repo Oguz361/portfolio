@@ -12,7 +12,7 @@ const content = {
     sections: [
       {
         title: "1. Controller",
-        body: "Oguz Kaan Öztürk — [your-email@example.com]",
+        body: "Oguz Kaan Öztürk — [EMAIL]",
       },
       {
         title: "2. Data Collected",
@@ -44,7 +44,7 @@ const content = {
     sections: [
       {
         title: "1. Verantwortlicher",
-        body: "Oguz Kaan Öztürk — [ihre-email@example.com]",
+        body: "Oguz Kaan Öztürk — [EMAIL]",
       },
       {
         title: "2. Erhobene Daten",

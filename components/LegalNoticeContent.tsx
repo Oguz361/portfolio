@@ -20,7 +20,7 @@ const content = {
       },
       {
         title: "3. Contact",
-        body: "[your-email@example.com]",
+        body: "[EMAIL]",
       },
       {
         title: "4. Disclaimer",
@@ -43,7 +43,7 @@ const content = {
       },
       {
         title: "3. Kontakt",
-        body: "[ihre-email@example.com]",
+        body: "[EMAIL]",
       },
       {
         title: "4. Haftungsausschluss",
