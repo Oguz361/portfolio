@@ -27,7 +27,7 @@ export default function ProjectCard({ project }: { project: Project }) {
     <Link href={`/projects/${slugify(project.title)}`} className="group flex cursor-pointer flex-col overflow-hidden rounded-xl border border-surface0 bg-transparent shadow-lg transition-all hover:border-accent">
       <div className="relative aspect-[5/4] w-full overflow-hidden bg-transparent">
         <div className="absolute inset-0 flex items-center justify-center p-4">
-          <Terminal sequence={false} className="h-full w-full border-surface1 bg-mantle scale-95 transition-transform duration-300 ease-out group-hover:scale-100">
+          <Terminal sequence={false} className="h-full w-full border-surface1 bg-mantle transition-transform duration-300 ease-out group-hover:scale-[1.05]">
             <div className="h-28 overflow-hidden">
               <AnimatedSpan startOnView>
                 {finalLines.map((line, i) => (
@@ -47,7 +47,7 @@ export default function ProjectCard({ project }: { project: Project }) {
           </Terminal>
         </div>
       </div>
-      <div className="flex flex-1 flex-col gap-3 px-[calc(1rem+2.5%)] pt-1 pb-4 group-hover:px-4 transition-[padding-left,padding-right] duration-300 ease-out">
+      <div className="flex flex-1 flex-col gap-3 px-4 pt-1 pb-4">
         <h3 className="text-lg font-semibold text-ctp-text transition-colors group-hover:text-accent">
           {project.title}
         </h3>
