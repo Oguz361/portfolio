@@ -43,14 +43,12 @@ export default function Navigation() {
       {mounted &&
         createPortal(
           <div
-            className={`fixed inset-0 z-50 md:hidden transition-opacity duration-300 ${
-              isOpen
-                ? "opacity-100 pointer-events-auto"
-                : "opacity-0 pointer-events-none"
+            className={`fixed inset-0 z-50 md:hidden ${
+              isOpen ? "pointer-events-auto" : "pointer-events-none"
             }`}
           >
             <div
-              className="absolute inset-0 backdrop-blur-sm"
+              className={`absolute inset-0 ${isOpen ? "backdrop-blur-sm" : ""}`}
               onClick={() => setIsOpen(false)}
             />
 
