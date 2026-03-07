@@ -98,7 +98,7 @@ export default function TypingTest() {
         {phase !== "idle" && (
           <button
             onClick={reset}
-            className="font-mono text-xs text-subtext0 hover:text-accent transition-colors"
+            className="font-mono text-xs text-subtext0 hover:text-accent transition-colors cursor-pointer"
           >
             ↺ reset
           </button>
@@ -183,7 +183,7 @@ export default function TypingTest() {
             </div>
             <button
               onClick={reset}
-              className="ml-auto font-mono text-xs border border-surface1 rounded-lg px-3 py-1.5 text-subtext0 hover:border-accent hover:text-accent transition-colors"
+              className="ml-auto font-mono text-xs border border-surface1 rounded-lg px-3 py-1.5 text-subtext0 hover:border-accent hover:text-accent transition-colors cursor-pointer"
             >
               ↺ try again
             </button>

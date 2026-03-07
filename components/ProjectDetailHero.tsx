@@ -2,10 +2,10 @@
 
 import figlet from "figlet";
 import smallFont from "figlet/importable-fonts/Small.js";
-import { motion } from "motion/react";
 import { Terminal, AnimatedSpan, TypingAnimation } from "@/components/ui/terminal";
 import type { Project } from "@/data/projects";
 import { slugify } from "@/lib/slugify";
+import { ViewTransition } from "react";
 
 figlet.parseFont("Small", smallFont);
 
@@ -20,7 +20,8 @@ export function ProjectDetailHero({ project }: { project: Project }) {
   const finalLines = asciiLines.length > 0 ? asciiLines : [project.title];
 
   return (
-    <motion.div layoutId={`project-terminal-${slugify(project.title)}`} className="flex justify-center">
+    <ViewTransition name={`project-terminal-${slugify(project.title)}`}>
+    <div className="terminal-morph-el flex justify-center">
       <Terminal sequence={false} className="border-surface1 bg-mantle w-full max-w-2xl">
         <AnimatedSpan startOnView>
           {finalLines.map((line, i) => (
@@ -37,6 +38,7 @@ export function ProjectDetailHero({ project }: { project: Project }) {
           <span className="animate-pulse text-accent">█</span>
         </AnimatedSpan>
       </Terminal>
-    </motion.div>
+    </div>
+    </ViewTransition>
   );
 }

@@ -4,10 +4,10 @@ import figlet from "figlet";
 import smallFont from "figlet/importable-fonts/Small.js";
 import { Tag } from "lucide-react";
 import Link from "next/link";
-import { motion } from "motion/react";
 import { Terminal, AnimatedSpan, TypingAnimation } from "@/components/ui/terminal";
 import type { Project } from "@/data/projects";
 import { slugify } from "@/lib/slugify";
+import { ViewTransition } from "react";
 
 figlet.parseFont("Small", smallFont);
 
@@ -28,7 +28,8 @@ export default function ProjectCard({ project }: { project: Project }) {
 
   return (
     <Link href={`/projects/${slugify(project.title)}`} className="group flex cursor-pointer flex-col overflow-hidden rounded-xl border border-surface0 bg-transparent shadow-lg transition-all hover:border-accent">
-      <motion.div layoutId={`project-terminal-${slugify(project.title)}`} className="relative aspect-[5/4] w-full overflow-hidden bg-transparent">
+      <ViewTransition name={`project-terminal-${slugify(project.title)}`}>
+      <div className="terminal-morph-el relative aspect-[5/4] w-full overflow-hidden bg-transparent">
         <div className="absolute inset-0 flex items-center justify-center p-4">
           <Terminal sequence={false} className="h-full w-full border-surface1 bg-mantle transition-transform duration-300 ease-out group-hover:scale-[1.05]">
             <div className="h-28 overflow-hidden">
@@ -49,7 +50,8 @@ export default function ProjectCard({ project }: { project: Project }) {
             </AnimatedSpan>
           </Terminal>
         </div>
-      </motion.div>
+      </div>
+      </ViewTransition>
       <div className="flex flex-1 flex-col gap-3 px-4 pt-1 pb-4">
         <h3 className="text-lg font-semibold text-ctp-text transition-colors group-hover:text-accent">
           {project.title}

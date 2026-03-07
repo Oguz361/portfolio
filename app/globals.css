@@ -249,3 +249,22 @@ body {
   scrollbar-width: thin;
   scrollbar-color: var(--ctp-accent) var(--ctp-base);
 }
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+
+.terminal-morph-el {
+  view-transition-class: terminal-morph;
+}
+::view-transition-old(.terminal-morph) {
+  display: none;
+}
+::view-transition-new(.terminal-morph) {
+  animation: none;
+}
+::view-transition-group(.terminal-morph) {
+  animation-duration: 400ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
