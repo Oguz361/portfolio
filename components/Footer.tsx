@@ -27,15 +27,17 @@ export default function Footer() {
         dangerouslySetInnerHTML={{ __html: "<!-- FLAG{v13w_s0urc3_m4st3r} -->" }}
       />
 
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-subtext0">
-        <span>&copy; {new Date().getFullYear()} Oguz Kaan Öztürk</span>
-        <Sep />
-        <span className="flex items-center gap-1.5">
-          <span className="h-2.5 w-2.5 rounded-full bg-ctp-green animate-pulse-glow" />
-          All Systems Operational
-        </span>
+      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-3 sm:gap-y-2 text-sm text-subtext0">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+          <span>&copy; {new Date().getFullYear()} Oguz Kaan Öztürk</span>
+          <Sep />
+          <span className="flex items-center gap-1.5">
+            <span className="h-2.5 w-2.5 rounded-full bg-ctp-green animate-pulse-glow" />
+            All Systems Operational
+          </span>
+        </div>
 
-        <div className="ml-auto flex items-center gap-x-3">
+        <div className="flex flex-wrap items-center gap-x-3 sm:ml-auto">
           {socials.map(({ icon: Icon, href, label }, index) => (
             <Fragment key={label}>
               {index > 0 && <Sep />}
