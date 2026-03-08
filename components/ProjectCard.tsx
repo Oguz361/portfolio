@@ -4,6 +4,7 @@ import figlet from "figlet";
 import smallFont from "figlet/importable-fonts/Small.js";
 import { Tag } from "lucide-react";
 import Link from "next/link";
+import { useRef, useEffect, useState } from "react";
 import { Terminal, AnimatedSpan, TypingAnimation } from "@/components/ui/terminal";
 import type { Project } from "@/data/projects";
 import { slugify } from "@/lib/slugify";
@@ -21,6 +22,23 @@ export default function ProjectCard({ project }: { project: Project }) {
   const asciiArt = figlet.textSync(project.title, { font: "Small" });
   const asciiLines = asciiArt.split("\n").filter((line) => line.trim() !== "");
   const finalLines = asciiLines.length > 0 ? asciiLines : [project.title];
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const asciiRef = useRef<HTMLDivElement>(null);
+  const [asciiScale, setAsciiScale] = useState(1);
+
+  useEffect(() => {
+    const calculate = () => {
+      if (!containerRef.current || !asciiRef.current) return;
+      const containerWidth = containerRef.current.offsetWidth;
+      const asciiWidth = asciiRef.current.scrollWidth;
+      setAsciiScale(asciiWidth > containerWidth ? containerWidth / asciiWidth : 1);
+    };
+    calculate();
+    window.addEventListener("resize", calculate);
+    return () => window.removeEventListener("resize", calculate);
+  }, []);
+
   const truncatedDesc =
     project.description.length > 130
       ? project.description.slice(0, 130).replace(/\s+\S*$/, "") + "…"
@@ -32,19 +50,21 @@ export default function ProjectCard({ project }: { project: Project }) {
       <div className="terminal-morph-el relative aspect-[5/4] w-full overflow-hidden bg-transparent">
         <div className="absolute inset-0 flex items-center justify-center p-4">
           <Terminal sequence={false} className="h-full w-full border-surface1 bg-mantle transition-transform duration-300 ease-out group-hover:scale-[1.05]">
-            <div className="h-28 overflow-hidden text-[0.55rem] leading-[0.7rem] sm:text-sm sm:leading-normal">
-              <AnimatedSpan startOnView>
-                {finalLines.map((line, i) => (
-                  <div key={i} className={ASCII_COLORS[i % ASCII_COLORS.length]}>
-                    {line}
-                  </div>
-                ))}
-              </AnimatedSpan>
+            <div ref={containerRef} className="h-28 overflow-hidden text-[0.55rem] leading-[0.7rem] sm:text-sm sm:leading-normal">
+              <div ref={asciiRef} style={{ transform: `scaleX(${asciiScale})`, transformOrigin: "left top" }}>
+                <AnimatedSpan startOnView>
+                  {finalLines.map((line, i) => (
+                    <div key={i} className={ASCII_COLORS[i % ASCII_COLORS.length]}>
+                      {line}
+                    </div>
+                  ))}
+                </AnimatedSpan>
+              </div>
             </div>
             <TypingAnimation startOnView delay={300} className="mt-4 text-ctp-text">
               $ cat README.md
             </TypingAnimation>
-            <AnimatedSpan startOnView delay={1300} className="text-subtext0 mt-1 whitespace-normal break-words">
+            <AnimatedSpan startOnView delay={1300} className="text-subtext0 mt-1 mb-2 whitespace-normal break-words">
               {truncatedDesc}
               <span className="animate-pulse text-accent">█</span>
             </AnimatedSpan>
