@@ -25,13 +25,11 @@ export default function Hero() {
       <h1 className="text-3xl font-extrabold tracking-tight text-ctp-text sm:text-4xl">
         Hey! I&apos;m <span className="text-accent">Oguz Kaan Öztürk</span>
       </h1>
-      <p className="text-lg text-subtext1">
-        Full-Stack Developer &amp; Software Engineer
+<p className="max-w-2xl leading-relaxed text-subtext0">
+        a Full-Stack Developer and recent Media Informatics graduate from Berliner Hochschule für Technik (BHT). I build all kinds of applications and have a strong interest in cybersecurity, which I pursue through hands-on labs, projects and a self-hosted home lab.
       </p>
       <p className="max-w-2xl leading-relaxed text-subtext0">
-        I build modern web applications and developer tools. Passionate about
-        clean architecture, open source, and creating seamless user experiences
-        with cutting-edge technologies.
+        During my studies, I interned at Charité – Universitätsmedizin Berlin, where I built an AI-powered tool to support clinical research in the urology department.
       </p>
       <div className="flex items-center gap-3">
         {socials.map(({ icon: Icon, href, label }, index) => (

@@ -16,11 +16,11 @@ const content = {
       },
       {
         title: "2. Address",
-        body: "[Street + Number]\n[Postal Code] [City]\nGermany",
+        body: "Alte Jakobstraße 131,\n10969 Berlin\nGermany",
       },
       {
         title: "3. Contact",
-        body: "[EMAIL]",
+        body: "oguzkaan61@live.de",
       },
       {
         title: "4. Disclaimer",
@@ -39,11 +39,11 @@ const content = {
       },
       {
         title: "2. Adresse",
-        body: "[Straße + Hausnummer]\n[PLZ] [Stadt]\nDeutschland",
+        body: "Alte Jakobstraße 131,\n10969 Berlin\nDeutschland",
       },
       {
         title: "3. Kontakt",
-        body: "[EMAIL]",
+        body: "oguzkaan61@live.de",
       },
       {
         title: "4. Haftungsausschluss",

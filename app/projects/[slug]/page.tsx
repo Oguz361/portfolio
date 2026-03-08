@@ -87,6 +87,28 @@ export default async function ProjectDetailPage({
         </p>
       </div>
 
+      {project.keyFeatures && project.keyFeatures.length > 0 && (
+        <div className="max-w-2xl mx-auto w-full space-y-3">
+          <h2 className="text-2xl font-extrabold sm:text-3xl text-accent border-b border-surface0 pb-2">
+            Key Features
+          </h2>
+          <ul className="space-y-2 text-subtext0">
+            {project.keyFeatures.map((f, i) => (
+              <li key={i} className="flex items-start gap-2 leading-relaxed">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                {f}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {project.note && (
+        <div className="max-w-2xl mx-auto w-full rounded-md border border-surface0 bg-surface0/40 px-4 py-3 text-sm text-subtext0 italic">
+          {project.note}
+        </div>
+      )}
+
       {project.screenshots && project.screenshots.length > 0 && (
         <div className="space-y-3">
           <h2 className="text-xl font-semibold text-ctp-text border-b border-surface0 pb-2">

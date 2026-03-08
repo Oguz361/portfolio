@@ -19,7 +19,7 @@ export default function FeaturedProjects() {
         </a>
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
-        {projects.slice(0, 2).map((project) => (
+        {projects.filter(p => p.featured).map((project) => (
           <ProjectCard key={project.title} project={project} />
         ))}
       </div>
