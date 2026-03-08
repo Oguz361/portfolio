@@ -6,9 +6,9 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 
 const links = [
-  { label: "Projects", href: "/projects" },
-  { label: "CTF", href: "/ctf" },
-  { label: "Resume", href: "/resume" },
+  { label: "Projects", href: "/projects", external: false },
+  { label: "CTF", href: "/ctf", external: false },
+  { label: "Resume", href: "/resume.pdf", external: true },
 ];
 
 export default function Navigation() {
@@ -21,15 +21,27 @@ export default function Navigation() {
   return (
     <nav className="relative font-mono text-sm font-medium tracking-normal text-subtext1">
       <div className="hidden md:flex items-center gap-2">
-        {links.map((link) => (
-          <Link
-            key={link.label}
-            href={link.href}
-            className="px-3 py-1.5 transition-colors hover:text-accent cursor-pointer"
-          >
-            {link.label}
-          </Link>
-        ))}
+        {links.map((link) =>
+          link.external ? (
+            <a
+              key={link.label}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-1.5 transition-colors hover:text-accent cursor-pointer"
+            >
+              {link.label}
+            </a>
+          ) : (
+            <Link
+              key={link.label}
+              href={link.href}
+              className="px-3 py-1.5 transition-colors hover:text-accent cursor-pointer"
+            >
+              {link.label}
+            </Link>
+          )
+        )}
       </div>
 
       <button
@@ -74,13 +86,25 @@ export default function Navigation() {
                 <ul className="space-y-2">
                   {links.map((link) => (
                     <li key={link.label}>
-                      <Link
-                        href={link.href}
-                        onClick={() => setIsOpen(false)}
-                        className="block rounded p-2 transition-colors hover:bg-surface0"
-                      >
-                        {link.label}
-                      </Link>
+                      {link.external ? (
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => setIsOpen(false)}
+                          className="block rounded p-2 transition-colors hover:bg-surface0"
+                        >
+                          {link.label}
+                        </a>
+                      ) : (
+                        <Link
+                          href={link.href}
+                          onClick={() => setIsOpen(false)}
+                          className="block rounded p-2 transition-colors hover:bg-surface0"
+                        >
+                          {link.label}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>
