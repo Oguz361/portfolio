@@ -32,7 +32,7 @@ export default function ProjectCard({ project }: { project: Project }) {
       <div className="terminal-morph-el relative aspect-[5/4] w-full overflow-hidden bg-transparent">
         <div className="absolute inset-0 flex items-center justify-center p-4">
           <Terminal sequence={false} className="h-full w-full border-surface1 bg-mantle transition-transform duration-300 ease-out group-hover:scale-[1.05]">
-            <div className="h-28 overflow-hidden">
+            <div className="h-28 overflow-hidden text-[0.55rem] leading-[0.7rem] sm:text-sm sm:leading-normal">
               <AnimatedSpan startOnView>
                 {finalLines.map((line, i) => (
                   <div key={i} className={ASCII_COLORS[i % ASCII_COLORS.length]}>

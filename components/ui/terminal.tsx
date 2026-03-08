@@ -240,7 +240,7 @@ export const Terminal = ({
         </div>
       </div>
       <pre className="p-4">
-        <code className="grid gap-y-1 overflow-auto">{wrappedChildren}</code>
+        <code className="grid gap-y-1 overflow-x-hidden">{wrappedChildren}</code>
       </pre>
     </div>
   )
