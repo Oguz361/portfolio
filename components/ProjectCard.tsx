@@ -39,18 +39,13 @@ export default function ProjectCard({ project }: { project: Project }) {
     return () => window.removeEventListener("resize", calculate);
   }, []);
 
-  const truncatedDesc =
-    project.description.length > 130
-      ? project.description.slice(0, 130).replace(/\s+\S*$/, "") + "…"
-      : project.description;
-
   return (
     <Link href={`/projects/${slugify(project.title)}`} className="group flex cursor-pointer flex-col overflow-hidden rounded-xl border border-surface0 bg-transparent shadow-lg transition-all hover:border-accent">
       <ViewTransition name={`project-terminal-${slugify(project.title)}`}>
       <div className="terminal-morph-el relative aspect-[5/4] w-full overflow-hidden bg-transparent">
         <div className="absolute inset-0 flex items-center justify-center p-4">
-          <Terminal sequence={false} className="h-full w-full border-surface1 bg-mantle transition-transform duration-300 ease-out group-hover:scale-[1.05]">
-            <div ref={containerRef} className="h-28 overflow-hidden text-[0.55rem] leading-[0.7rem] sm:text-sm sm:leading-normal">
+          <Terminal sequence={false} className="h-full w-full max-w-none border-surface1 bg-mantle transition-transform duration-300 ease-out group-hover:scale-[1.05]">
+            <div ref={containerRef} className="h-20 sm:h-24 lg:h-28 overflow-hidden text-[0.55rem] sm:text-xs lg:text-sm leading-[0.7rem] sm:leading-tight lg:leading-normal">
               <div ref={asciiRef} style={{ transform: `scaleX(${asciiScale})`, transformOrigin: "left top" }}>
                 <AnimatedSpan startOnView>
                   {finalLines.map((line, i) => (
@@ -61,11 +56,11 @@ export default function ProjectCard({ project }: { project: Project }) {
                 </AnimatedSpan>
               </div>
             </div>
-            <TypingAnimation startOnView delay={300} className="mt-4 text-ctp-text">
-              $ cat README.md
+            <TypingAnimation startOnView delay={300} className="mt-1 sm:mt-2 lg:mt-4 text-ctp-text">
+              $ cat TAGLINE
             </TypingAnimation>
-            <AnimatedSpan startOnView delay={1300} className="text-subtext0 mt-1 mb-2 whitespace-normal break-words">
-              {truncatedDesc}
+            <AnimatedSpan startOnView delay={1300} className="text-subtext0 mt-1 whitespace-normal break-words text-xs sm:text-sm overflow-hidden">
+              {project.tagline}
               <span className="animate-pulse text-accent">█</span>
             </AnimatedSpan>
           </Terminal>

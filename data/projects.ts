@@ -1,6 +1,7 @@
 export interface Project {
   title: string;
   description: string;
+  tagline: string;
   tags: string[];
   github?: string;
   demo?: string;
@@ -18,6 +19,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     title: "Portfolio",
+    tagline: "Developer portfolio with terminal UI and 3D globe.",
     description: "A personal developer portfolio built with Next.js 16 and React 19, featuring animated project showcases, a 3D globe, and a terminal-style hero section.",
     tags: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS v4", "shadcn/ui", "Motion"],
     github: "https://github.com/Oguz361/portfolio",
@@ -51,6 +53,7 @@ All content lives in a single TypeScript data file (data/projects.ts) with a str
   {
     featured: true,
     title: "Driving School",
+    tagline: "Freelance driving school management with role-based access.",
     description: "A full-stack freelance web app for a driving school client — a public landing page combined with a role-based internal management system for scheduling, students, and audit logging.",
     tags: ["Next.js 14", "TypeScript", "PostgreSQL", "Prisma", "Tailwind CSS"],
     github: "https://github.com/Oguz361/driving-school-manager",
@@ -81,6 +84,7 @@ The entire application — management system and landing page alike — is built
   },
   {
     title: "Bachelor Thesis",
+    tagline: "AI-powered adaptive learning with deep knowledge tracing.",
     description: "A full-stack adaptive learning platform exploring deep learning-based knowledge tracing translated into actionable pedagogical recommendations for classroom teachers.",
     tags: ["Next.js 14", "TypeScript", "FastAPI", "PyTorch", "SQLAlchemy", "shadcn/ui", "Zustand"],
     github: "https://github.com/Oguz361/Knowledge_Tracing_RecommandationSystem",
@@ -112,6 +116,7 @@ A small user study with three teachers found the mastery transformation concept 
   },
   {
     title: "PixelSwap",
+    tagline: "Decentralized token exchange on the Polygon testnet.",
     description: "A decentralized exchange on the Polygon Amoy Testnet using an AMM model with token swaps, liquidity provision, and live market data.",
     tags: ["Next.js", "TypeScript", "Solidity", "Thirdweb", "Recharts"],
     github: "https://github.com/Oguz361/PixelSwap",
@@ -135,6 +140,7 @@ Wallet connectivity is handled by ThirdwebProvider, supporting MetaMask and Wall
   {
     featured: true,
     title: "Charité AI",
+    tagline: "Clinical ML system for surgery complication detection.",
     description: "A clinical ML system for detecting and classifying surgery-related complications, built during an internship at Charité – Universitätsmedizin Berlin.",
     tags: ["Python", "TensorFlow", "scikit-learn", "pandas", "NumPy"],
     createdAt: "Feb 2024",

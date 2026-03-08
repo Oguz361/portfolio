@@ -44,7 +44,7 @@ export default function Footer() {
       />
 
       <div className="flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-3 sm:gap-y-2 text-sm text-subtext0">
-        <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-3 gap-y-1">
+        <div className="flex flex-col items-center sm:flex-row sm:flex-wrap sm:justify-start gap-x-3 gap-y-1">
           <span>&copy; {new Date().getFullYear()} Oguz-Kaan Öztürk</span>
           <Sep />
           <span className="flex items-center gap-1.5">
