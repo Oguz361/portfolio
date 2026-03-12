@@ -33,7 +33,7 @@ export const challenges: CTFChallenge[] = [
     title: "Decode Me",
     difficulty: "medium",
     category: "Encoding",
-    hint: "Not everything is what it seems — some things need decoding.",
+    hint: "Not everything is what it seems — inspect the surface and decode what's hidden beneath.",
     flagHash:
       "0bb215a34c5afd3f9ffa659cf06568dcde3e77b68c220edd50823c123b1e246d",
   },
@@ -42,7 +42,7 @@ export const challenges: CTFChallenge[] = [
     title: "Method Switching",
     difficulty: "hard",
     category: "API Exploitation",
-    hint: "GET isn't the only way to ask.",
+    hint: "There's a /flag worth capturing — but GET isn't the only way to ask.",
     flagHash:
       "49682209f375f4e1814d2cbf959a41b59940d8512dbaa23730351cb60ef6299a",
   },

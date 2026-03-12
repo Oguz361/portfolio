@@ -54,7 +54,6 @@ The site also includes a built-in CTF challenge with four tasks of increasing di
     ],
   },
   {
-    featured: true,
     title: "Driving School",
     tagline: "Freelance driving school management with role-based access.",
     description: "A full-stack freelance web app for a driving school client — a public landing page combined with a role-based internal management system for scheduling, students, and audit logging.",
@@ -139,6 +138,46 @@ Wallet connectivity is handled by ThirdwebProvider, supporting MetaMask and Wall
       { name: "Thirdweb SDK", description: "ThirdwebProvider for wallet connection (MetaMask & WalletConnect) and contract interaction hooks" },
       { name: "Recharts", description: "7-day sparkline price charts built with Recharts, data sourced from the CoinGecko API" },
     ],
+  },
+  {
+    featured: true,
+    title: "Home Lab",
+    tagline: "Proxmox hypervisor hardened with Blue Team principles.",
+    description: "A Cyber Security Home Lab built on a bare-metal Proxmox VE hypervisor, hardened step by step following common Blue Team principles — from forensic logging and intrusion prevention to network segmentation and identity management.",
+    tags: ["Proxmox VE", "Linux", "Auditd", "Fail2Ban", "Firewall", "IAM"],
+    createdAt: "Mar 2026",
+    longDescription: `As a hands-on learning project, I built a Proxmox VE hypervisor on a bare-metal laptop and hardened it step by step following common Blue Team principles. The focus wasn't just on the setup itself, but on the reasoning behind every decision.
+
+## Patch Management & System Availability
+Proxmox is configured by default to use a paid enterprise repository. Without a valid license, updates fail with a 401 error — leaving the system frozen on a potentially vulnerable state. The fix was reconfiguring it to use the free pve-no-subscription repository, followed by a full system upgrade. Since the hardware is a laptop, systemd-logind was also configured to ignore the lid-close event, preventing the system from entering suspend mode — without this change, every physical interaction with the device would have taken all running VMs offline.
+
+## Forensic Logging with Auditd
+Instead of relying on standard syslogs, auditd was deployed — a logging subsystem built directly into the Linux kernel. Rather than using resource-heavy watch rules, optimized syscall rules were defined at the 64-bit architecture level to keep the performance overhead on the hypervisor minimal. Write access to critical paths is monitored: /etc/passwd and /etc/shadow for privilege escalation, /etc/ssh/sshd_config for SSH backdoors, /etc/pve/ for VM configuration tampering, and /etc/fail2ban/ for attempts to disable the IPS. Each event generates a uniquely tagged log entry, forming the foundation for a future SIEM integration.
+
+## Intrusion Prevention with Fail2Ban
+The Proxmox Web GUI isn't covered by default IPS rule sets. A custom Fail2Ban filter was developed using a tailored regex to detect authentication failures from the pvedaemon service, reading directly from the systemd journal for better performance. Configured thresholds: 3 failed attempts within 10 minutes trigger a one-hour IP ban — strict enough for real protection, without permanently locking out legitimate administrators.
+
+## Network Hardening & Firewall (Default Deny)
+A static IP was assigned to the management workstation and stored in a logical IP set (Management_IPs), decoupling the firewall rules from specific addresses. The Proxmox firewall was enabled with a strict Default Drop policy: all incoming traffic is blocked by default, except SSH (port 22) and the Web GUI (port 8006) from the defined management IP set. An Nmap scan from elsewhere on the home network shows the host as unreachable — a concrete, verifiable result.
+
+## Identity & Access Management (IAM)
+Three IAM measures were combined: TOTP MFA for root via the Proxmox Web GUI, a dedicated PVE-realm user for day-to-day administration (PVE users exist exclusively at the application layer — even if compromised, no direct shell access is possible), and passwordless SSH via Ed25519 key pairs with password authentication fully disabled.`,
+    keyFeatures: [
+      "Patch Management & System Availability — enterprise repo replaced with pve-no-subscription; systemd-logind configured to prevent suspend on lid close.",
+      "Forensic Logging with Auditd — optimized 64-bit syscall rules monitoring /etc/passwd, /etc/shadow, /etc/ssh/sshd_config, /etc/pve/, and /etc/fail2ban/ with unique tags for future SIEM integration.",
+      "Intrusion Prevention with Fail2Ban — custom regex filter for pvedaemon auth failures read from the systemd journal; 3 failures in 10 minutes triggers a one-hour ban.",
+      "Network Hardening & Firewall (Default Deny) — static management IP set, Proxmox firewall with Default Drop policy; only SSH and Web GUI open to the management workstation.",
+      "Identity & Access Management — TOTP MFA for root, dedicated PVE-realm user with no shell access, and passwordless Ed25519 SSH with password auth disabled.",
+    ],
+    techDetails: [
+      { name: "Proxmox VE", description: "Bare-metal Type 1 hypervisor on Debian — hosts all VMs and provides the management API and web GUI" },
+      { name: "Auditd", description: "Kernel-level audit framework with optimized 64-bit syscall rules monitoring critical system paths for forensic traceability" },
+      { name: "Fail2Ban", description: "Custom IPS filter for pvedaemon auth failures, reading from systemd journal with configurable ban thresholds" },
+      { name: "Proxmox Firewall", description: "Default Drop policy with logical IP sets; only SSH (22) and Web GUI (8006) open to the management workstation" },
+      { name: "SSH / Ed25519", description: "Passwordless key-based authentication with Ed25519; password auth fully disabled in sshd_config" },
+      { name: "TOTP MFA", description: "Time-based one-time password for Proxmox Web GUI root access — second factor against credential theft" },
+    ],
+    note: "No public repository — this is a live infrastructure project running on bare-metal hardware. This project is ongoing. Planned next steps include SIEM integration with Wazuh, red team simulations using a dedicated Kali VM, and DevSecOps pipelines for automated vulnerability scanning.",
   },
   {
     featured: true,

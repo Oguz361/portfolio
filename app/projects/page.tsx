@@ -10,9 +10,11 @@ export default function ProjectsPage() {
         <h2 className="text-3xl font-bold text-ctp-text">Projects</h2>
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
-        {projects.map((project) => (
-          <ProjectCard key={project.title} project={project} />
-        ))}
+        {[...projects]
+          .sort((a, b) => Date.parse(b.createdAt ?? "") - Date.parse(a.createdAt ?? ""))
+          .map((project) => (
+            <ProjectCard key={project.title} project={project} />
+          ))}
       </div>
     </section>
   );
