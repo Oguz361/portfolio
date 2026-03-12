@@ -3,6 +3,7 @@ import ConnectCard from "./ConnectCard";
 import LocationWidget from "./LocationWidget";
 import CTFWidget from "./CTFWidget";
 import GitHubActivity from "./GitHubActivity";
+import ViewCounter from "./ViewCounter";
 import TypingTest from "./TypingTest";
 
 export default function Dashboard() {
@@ -18,8 +19,9 @@ export default function Dashboard() {
         <div className="flex flex-col [&>*]:flex-1">
           <CTFWidget />
         </div>
-        <div className="flex flex-col [&>*]:flex-1">
+        <div className="flex flex-col gap-5 md:gap-6">
           <GitHubActivity />
+          <ViewCounter />
         </div>
 
         <div className="sm:col-span-2 lg:col-span-1 flex flex-col [&>*]:flex-1">
