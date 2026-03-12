@@ -26,7 +26,7 @@ export default function Hero() {
         Hey! I&apos;m <span className="text-accent">Oguz Kaan Öztürk</span>
       </h1>
 <p className="max-w-2xl leading-relaxed text-subtext0">
-        a Full-Stack Developer and recent Media Informatics graduate from Berliner Hochschule für Technik (BHT). I build all kinds of applications and have a strong interest in cybersecurity, which I pursue through hands-on labs, projects and a self-hosted home lab.
+        a Full-Stack Developer and recent Media Informatics graduate from Berliner Hochschule für Technik (BHT). In my free time, I like to build all kinds of applications and have a strong interest in cybersecurity, which I pursue through hands-on labs, projects and a self-hosted home lab.
       </p>
       <p className="max-w-2xl leading-relaxed text-subtext0">
         During my studies, I interned at Charité – Universitätsmedizin Berlin, where I built an AI-powered tool to support clinical research in the urology department.

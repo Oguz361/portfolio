@@ -27,18 +27,21 @@ export const projects: Project[] = [
     createdAt: "Mar 2026",
     longDescription: `This portfolio is the site you are currently viewing — a personal developer portfolio built to showcase projects, skills, and experience through a polished, terminal-inspired interface.
 
-Project cards use a custom Terminal component that orchestrates a three-step animation sequence: the project title is rendered as ASCII art via figlet (Small font), a shell command animates in character-by-character 300 ms later, and the project description follows at 1 300 ms with a blinking cursor. The interactive 3D globe in the hero section is built with COBE — a WebGL renderer configured with 16 000 map samples, 10 worldwide location markers, and spring-physics drag interaction (damping: 1 400 ms, Motion useSpring). Navigating from a project card to its detail page triggers a View Transition named terminal-morph, morphing the terminal window smoothly between routes via a custom 400 ms cubic-bezier curve.
+Each project card is wrapped in a custom Terminal component that plays a sequenced animation: the project title appears as ASCII art, followed by a typed-out shell command, and finally the project description with a blinking cursor. The interactive 3D globe in the hero section is built with COBE and can be freely dragged around with smooth, spring-based physics. Navigating from a project card to its detail page uses View Transitions to seamlessly morph the terminal window between routes.
 
-The site runs on Next.js 16 with the App Router and React 19. All project detail pages are statically pre-rendered at build time using generateStaticParams. The color system is built on the Catppuccin Mocha palette, exposed as Tailwind CSS v4 custom tokens via @theme inline and OkLch color math. An inline FOUC-prevention script runs before React hydration to apply the user's saved theme from localStorage, eliminating any color flash on first load.
+The site runs on Next.js 16 with the App Router and React 19. All project detail pages are statically pre-rendered at build time. The color system is built on the Catppuccin Mocha palette, exposed as Tailwind CSS v4 custom tokens. A small inline script applies the user's saved theme before React hydrates, preventing any color flash on first load.
 
-All content lives in a single TypeScript data file (data/projects.ts) with a strict Project interface, so adding new projects requires no UI changes. The dashboard on the homepage aggregates widgets — GitHub activity, a typing test, a CTF counter, and a location map — into a 4-column grid alongside the project showcase.`,
+All content lives in a single TypeScript data file with a strict Project interface, so adding new projects requires no UI changes. The dashboard on the homepage aggregates widgets — GitHub activity, a typing test, a CTF counter, and a location map — into a grid alongside the project showcase.
+
+The site also includes a built-in CTF challenge with four tasks of increasing difficulty — from Easy to Hard. The challenges span categories like source code analysis, DevTools inspection, encoding puzzles, and hidden API endpoints. Progress is tracked live in the dashboard, and the challenges are designed as a fun invitation for curious visitors to poke around and explore.`,
     keyFeatures: [
-      "Terminal-window project cards with three-step sequential animation: figlet ASCII art → shell command → typed description with blinking cursor.",
-      "Interactive 3D globe powered by COBE (WebGL, 16 000 map samples, 10 location markers, spring-physics drag interaction).",
-      "View Transitions between project cards and detail pages — named terminal-morph transition with custom 400 ms cubic-bezier animation.",
-      "Catppuccin Mocha color theme with Tailwind CSS v4 @theme tokens and inline FOUC-prevention script for flash-free load.",
-      "All project detail pages statically pre-rendered at build time via generateStaticParams and dynamic OpenGraph metadata.",
-      "Single TypeScript data file as the content layer — strict Project interface, no CMS or runtime parsing needed.",
+      "Terminal-window project cards with sequenced animation: ASCII art title → typed shell command → project description with blinking cursor.",
+      "Interactive 3D globe powered by COBE with draggable spring-physics interaction and worldwide location markers.",
+      "View Transitions that smoothly morph the terminal window between project cards and detail pages.",
+      "Catppuccin Mocha color theme with Tailwind CSS v4 custom tokens and flash-free theme loading.",
+      "All project detail pages statically pre-rendered at build time with dynamic OpenGraph metadata.",
+      "Built-in CTF challenge with four tasks (Easy → Hard) spanning source code, DevTools, encoding, and API categories.",
+      "Single TypeScript data file as the content layer — strict Project interface, no CMS needed.",
     ],
     techDetails: [
       { name: "Next.js 16", description: "App Router with React Server Components, file-based dynamic routing for project detail pages, and generateStaticParams for full static pre-rendering at build time" },
@@ -46,8 +49,8 @@ All content lives in a single TypeScript data file (data/projects.ts) with a str
       { name: "TypeScript", description: "Strict type safety across all components, the Project data interface, slug generation, and dynamic page params" },
       { name: "Tailwind CSS v4", description: "New v4 PostCSS engine with @theme inline custom tokens; full Catppuccin Mocha palette in OkLch color space; custom @keyframes for blink, pulse-glow, and shake" },
       { name: "shadcn/ui", description: "Accessible, unstyled Radix UI component primitives; integrated via @import shadcn/tailwind.css alongside Tailwind v4" },
-      { name: "Motion", description: "Framer Motion v12 — AnimatedSpan (fade + slide, 0.3 s), TypingAnimation (character-by-character reveal, 60 ms/char), useSpring for globe interaction, useInView for scroll-triggered entrance" },
-      { name: "COBE", description: "WebGL 3D globe with 16 000 map samples, high-DPI support, 10 worldwide location markers, and 1 400 ms damped spring drag interaction" },
+      { name: "Motion", description: "Framer Motion v12 — animated text reveals, spring-based globe interaction, and scroll-triggered entrance animations" },
+      { name: "COBE", description: "WebGL 3D globe with worldwide location markers and smooth spring-physics drag interaction" },
     ],
   },
   {
@@ -92,7 +95,7 @@ The entire application — management system and landing page alike — is built
     createdAt: "Jul 2025",
     longDescription: `A full-stack adaptive learning platform developed as a bachelor's thesis, exploring whether deep learning-based knowledge tracing can be meaningfully translated into actionable pedagogical recommendations for classroom teachers. The project serves as a proof of concept for a planned joint study between Berliner Hochschule für Technik (BHT) and a partner institution, investigating the practical applicability of AI-driven learning analytics in real educational settings.
 
-At the core of the system is an Attentive Knowledge Tracing (AKT) model — a transformer-based architecture that processes a student's full interaction history across problems and skills to produce continuous mastery probability estimates. Raw AKT output probabilities are post-processed into interpretable skill-level mastery profiles, which are then mapped to a three-tier recommendation framework grounded in established learning theory: Practice (70–90% predicted success) for consolidation, Optimal (50–70%) for the Zone of Proximal Development as described by Vygotsky, and Challenge (30–50%) for stretch tasks — drawing on Bloom's mastery learning principles.
+At the core of the system is an Attentive Knowledge Tracing (AKT) model — a transformer-based architecture that processes a student's full interaction history across problems and skills to produce continuous mastery probability estimates. Raw AKT output probabilities are post-processed into interpretable skill-level mastery profiles, which are then mapped to a three-tier recommendation framework grounded in established learning theory: Practice for consolidation, Optimal for the Zone of Proximal Development, and Challenge for stretch tasks — grounded in established learning theory.
 
 The backend is built with FastAPI and SQLAlchemy on SQLite, exposing a fully authenticated REST API with JWT-based auth, class/student management, CSV interaction import with duplicate detection and error reporting, and an AKT inference service loaded as a singleton at startup. The frontend, built with Next.js 14 and shadcn/ui, provides teachers with a dashboard for managing classes and students, importing data, and viewing per-student recommendation reports with configurable visualizations — radar charts, bar charts, or tables — exportable as formatted PDFs via jsPDF and html2canvas.
 
@@ -124,7 +127,7 @@ A small user study with three teachers found the mastery transformation concept 
     createdAt: "Jul 2024",
     longDescription: `PixelSwap is a fully functional decentralized exchange built on the Polygon Amoy Testnet, developed as a university project to explore the architecture of DeFi protocols and on-chain smart contract interactions.
 
-The platform allows users to swap between MATIC and a custom ERC-20 token (SWP) using an Automated Market Maker (AMM) model with a 0.3% fee mechanism — modelled after Uniswap V1. Real-time price calculation uses the getAmountOfTokens constant-product formula, ensuring accurate slippage estimates before every trade.
+The platform allows users to swap between MATIC and a custom ERC-20 token (SWP) using an Automated Market Maker (AMM) model with a 0.3% fee mechanism — modelled after Uniswap V1. Real-time price calculation uses a constant-product formula, ensuring accurate slippage estimates before every trade.
 
 Users can also provide liquidity to the pool and receive LP tokens proportional to their share, which entitle them to a cut of all trading fees. Removal burns LP tokens and returns the underlying assets. A live market data panel fetches MATIC price and a 7-day sparkline chart from the CoinGecko API, and a crypto news feed on the Explore page keeps traders informed.
 
