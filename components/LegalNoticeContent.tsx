@@ -16,7 +16,7 @@ const content = {
       },
       {
         title: "2. Address",
-        body: "Alte Jakobstraße 131,\n10969 Berlin\nGermany",
+        body: "c/o Budak\nWaldemarstraße 5,\n10179 Berlin\nGermany",
       },
       {
         title: "3. Contact",
@@ -39,7 +39,7 @@ const content = {
       },
       {
         title: "2. Adresse",
-        body: "Alte Jakobstraße 131,\n10969 Berlin\nDeutschland",
+        body: "c/o Budak\nWaldemarstraße 5,\n10179 Berlin\nDeutschland",
       },
       {
         title: "3. Kontakt",
