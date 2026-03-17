@@ -77,10 +77,10 @@ export default function PrivacyPolicyContent() {
 
   return (
     <section className="space-y-6 pt-20">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-y-2">
         <div className="flex items-center gap-2">
           <ShieldCheck className="h-7 w-7 text-accent" />
-          <h2 className="text-3xl font-bold text-ctp-text">{t.heading}</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-ctp-text">{t.heading}</h2>
         </div>
         <div className="flex items-center gap-2 text-sm">
           <button
