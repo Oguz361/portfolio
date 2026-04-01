@@ -143,10 +143,10 @@ Wallet connectivity is handled by ThirdwebProvider, supporting MetaMask and Wall
     featured: true,
     title: "Home Lab",
     tagline: "Proxmox hypervisor hardened with Blue Team principles.",
-    description: "A Cyber Security Home Lab built on a bare-metal Proxmox VE hypervisor, hardened step by step following common Blue Team principles — from forensic logging and intrusion prevention to network segmentation and identity management.",
-    tags: ["Proxmox VE", "Linux", "Auditd", "Fail2Ban", "Firewall", "IAM"],
+    description: "A Cyber Security Home Lab built on a bare-metal Proxmox VE hypervisor, hardened step by step following common Blue Team and Security Engineering principles — from forensic logging and intrusion prevention to SIEM deployment, network-based threat detection, compliance scanning, infrastructure automation, and cryptographic trust management.",
+    tags: ["Proxmox VE", "Linux", "Auditd", "Fail2Ban", "Firewall", "IAM", "Wazuh", "Suricata", "Ansible", "Smallstep CA", "HashiCorp Vault", "CIS Benchmark"],
     createdAt: "Mar 2026",
-    longDescription: `As a hands-on learning project, I built a Proxmox VE hypervisor on a bare-metal laptop and hardened it step by step following common Blue Team principles. The focus wasn't just on the setup itself, but on the reasoning behind every decision.
+    longDescription: `As a hands-on learning project, I built a Proxmox VE hypervisor on a bare-metal laptop and hardened it step by step following common Blue Team and Security Engineering principles. The focus wasn't just on the setup itself, but on the reasoning behind every decision — from forensic logging and intrusion prevention to SIEM deployment, network-based threat detection, compliance scanning, infrastructure automation, and cryptographic trust management.
 
 ## Patch Management & System Availability
 Proxmox is configured by default to use a paid enterprise repository. Without a valid license, updates fail with a 401 error — leaving the system frozen on a potentially vulnerable state. The fix was reconfiguring it to use the free pve-no-subscription repository, followed by a full system upgrade. Since the hardware is a laptop, systemd-logind was also configured to ignore the lid-close event, preventing the system from entering suspend mode — without this change, every physical interaction with the device would have taken all running VMs offline.
@@ -161,13 +161,49 @@ The Proxmox Web GUI isn't covered by default IPS rule sets. A custom Fail2Ban fi
 A static IP was assigned to the management workstation and stored in a logical IP set (Management_IPs), decoupling the firewall rules from specific addresses. The Proxmox firewall was enabled with a strict Default Drop policy: all incoming traffic is blocked by default, except SSH (port 22) and the Web GUI (port 8006) from the defined management IP set. An Nmap scan from elsewhere on the home network shows the host as unreachable — a concrete, verifiable result.
 
 ## Identity & Access Management (IAM)
-Three IAM measures were combined: TOTP MFA for root via the Proxmox Web GUI, a dedicated PVE-realm user for day-to-day administration (PVE users exist exclusively at the application layer — even if compromised, no direct shell access is possible), and passwordless SSH via Ed25519 key pairs with password authentication fully disabled.`,
+Three IAM measures were combined: TOTP MFA for root via the Proxmox Web GUI, a dedicated PVE-realm user for day-to-day administration (PVE users exist exclusively at the application layer — even if compromised, no direct shell access is possible), and passwordless SSH via Ed25519 key pairs with password authentication fully disabled.
+
+## SIEM Deployment with Wazuh
+A Wazuh All-in-One instance (Manager, Indexer, Dashboard) was deployed on a dedicated Ubuntu 24.04 VM running on the Proxmox hypervisor. The Wazuh Indexer is built on OpenSearch — a Java-based search engine — which made memory management a critical factor: with only 8 GiB of VM RAM available, the JVM heap had to be carefully balanced against the operating system and the remaining Wazuh components. A Wazuh Agent was installed on the Proxmox host itself, configured to forward Auditd logs (using the audit log format for native parsing), authentication logs from /var/log/auth.log, and Fail2Ban logs. The previously defined Auditd syscall tags — originally designed with SIEM integration in mind — now feed directly into Wazuh's correlation engine, closing the loop between forensic logging and centralized detection.
+
+## File Integrity Monitoring (FIM)
+Wazuh's syscheck module was configured in realtime mode to monitor the same critical paths already covered by Auditd — /etc/passwd, /etc/shadow, /etc/ssh/sshd_config, /etc/pve/, and /etc/fail2ban/ — but at a different layer. While Auditd captures who performed a write operation at the syscall level, FIM detects what actually changed: content, permissions, ownership, and timestamps. This dual-layer approach ensures that even if an attacker manages to tamper with audit logs, file-level changes are independently recorded and correlated in the SIEM. Proxmox's automatic rotation of cluster authentication keys (authkey.key, authkey.pub) was identified as a benign baseline event — the kind of signal-versus-noise distinction that matters in real SOC operations.
+
+## Active Response
+Wazuh's Active Response module was configured on the Manager to automatically issue firewall-drop commands to agents upon detection of specific attack patterns. SSH brute-force attempts (rule 5763) and repeated authentication failures (rule 5720) trigger an automatic 10-minute IP ban via iptables on the host where the attack is detected. The response is executed locally on the agent — meaning the blocking happens at the endpoint, not at the SIEM. This complements Fail2Ban rather than replacing it: Fail2Ban operates at the service level reading the systemd journal, while Active Response operates at the SIEM level, correlating across multiple log sources before reacting.
+
+## Network Intrusion Detection with Suricata
+Suricata was deployed directly on the Proxmox host — not in a separate VM — to minimize resource overhead while maintaining full visibility into the hypervisor's network traffic. It monitors the vmbr0 bridge interface, which carries both the host's own traffic and all VM traffic routed through the virtual network. With nearly 50,000 rules loaded via suricata-update (Emerging Threats ruleset), Suricata performs deep packet inspection and writes alert events in EVE JSON format to /var/log/suricata/eve.json. The Wazuh Agent reads this file natively using the JSON log format, and Wazuh's built-in Suricata decoders parse and index the alerts automatically — no custom decoders required. The result is a unified view in the Wazuh Dashboard combining host-based (HIDS) and network-based (NIDS) detection in a single pane of glass.
+
+## CIS Benchmark Compliance
+Wazuh's Security Configuration Assessment (SCA) module was enabled to run automated CIS Benchmark scans against the Proxmox host (Debian 13). Out of the full benchmark, 111 checks initially failed — a typical result for an unhardened base installation. Rather than blindly remediating every finding, each check was evaluated on its merit: insecure packages like telnet were removed, while checks like the UFW requirement were documented as conscious exceptions — Proxmox uses its own pve-firewall with a Default Deny policy, and running two competing firewall management layers would introduce rule conflicts and operational risk. This approach mirrors real-world compliance workflows, where the goal isn't a perfect score but a documented, risk-aware security posture.
+
+## Network Segmentation
+A second virtual bridge (vmbr1) was created on the Proxmox hypervisor with an isolated subnet (10.10.10.0/24) and no physical interface binding (bridge-ports none). This creates a fully internal network segment, logically separated from the management network on vmbr0 (192.168.0.0/24). Explicit iptables FORWARD rules drop all traffic between the two bridges in both directions, ensuring that a compromised VM on vmbr1 — such as a future Kali Linux attack lab — cannot reach the management network or the Wazuh SIEM. The rules were persisted using iptables-persistent. This segmentation requires no managed switch or VLAN-capable router; it exists entirely within the hypervisor, making it reproducible on any single-host lab environment.
+
+## Hardening Automation with Ansible
+An Ansible project was built on the management workstation to codify the Proxmox host's security baseline as infrastructure-as-code. A single hardening role automates: removal of insecure packages (telnet, rsh-client), SSH hardening (MaxAuthTries 3, X11Forwarding disabled, client-alive timeouts, protocol enforcement), kernel-level network hardening (ICMP redirect rejection, source route blocking, martian packet logging, broadcast ping protection), file permission enforcement for sensitive files (/etc/shadow, /etc/crontab, /etc/ssh/sshd_config), and service state validation (auditd and fail2ban running and enabled). The playbook is idempotent — running it repeatedly produces no unintended changes. This means the entire hardening baseline can be reapplied after any system update or configuration drift with a single command.
+
+## TLS / PKI Infrastructure
+A private Certificate Authority was built using Smallstep's step-ca, running as a systemd service on the Wazuh VM. The CA issues X.509 certificates for internal services, replacing the default self-signed certificates that ship with Wazuh and other components. The Wazuh Dashboard was reconfigured to use a CA-signed certificate, eliminating browser trust warnings from the management workstation. The root CA certificate was imported into the macOS system trust store, establishing a complete chain of trust: Root CA → Intermediate CA → Service Certificate → Browser. Certificate duration limits were configured at the authority level (maxTLSCertDuration: 8760h) to balance operational convenience with cryptographic hygiene. This setup demonstrates practical PKI management — the same workflow used in enterprise environments to manage internal TLS, but scaled to a single-host lab.
+
+## Secrets Management with HashiCorp Vault
+HashiCorp Vault was deployed on the Wazuh VM to centralize all credentials used across the homelab infrastructure. Vault runs with TLS enabled, using a certificate issued by the Smallstep CA — meaning the entire secrets management chain is cryptographically anchored to the lab's own trust root. Vault was initialized with Shamir's Secret Sharing (3 key shares, threshold of 2), ensuring that no single key can unseal the vault alone. A KV-v2 secrets engine was mounted at the homelab/ path, storing credentials for Wazuh, Proxmox, and the CA itself. This replaces the practice of storing passwords in plaintext configuration files or password managers disconnected from the infrastructure, and mirrors the secrets management patterns used in production environments.`,
     keyFeatures: [
       "Patch Management & System Availability — enterprise repo replaced with pve-no-subscription; systemd-logind configured to prevent suspend on lid close.",
-      "Forensic Logging with Auditd — optimized 64-bit syscall rules monitoring /etc/passwd, /etc/shadow, /etc/ssh/sshd_config, /etc/pve/, and /etc/fail2ban/ with unique tags for future SIEM integration.",
+      "Forensic Logging with Auditd — optimized 64-bit syscall rules monitoring /etc/passwd, /etc/shadow, /etc/ssh/sshd_config, /etc/pve/, and /etc/fail2ban/ with unique tags for SIEM integration.",
       "Intrusion Prevention with Fail2Ban — custom regex filter for pvedaemon auth failures read from the systemd journal; 3 failures in 10 minutes triggers a one-hour ban.",
       "Network Hardening & Firewall (Default Deny) — static management IP set, Proxmox firewall with Default Drop policy; only SSH and Web GUI open to the management workstation.",
       "Identity & Access Management — TOTP MFA for root, dedicated PVE-realm user with no shell access, and passwordless Ed25519 SSH with password auth disabled.",
+      "SIEM with Wazuh — All-in-One deployment (Manager, Indexer, Dashboard) on a dedicated VM; agent on the Proxmox host forwarding Auditd, auth, and Fail2Ban logs with custom detection rules.",
+      "File Integrity Monitoring — realtime syscheck on critical system paths; dual-layer detection alongside Auditd syscall monitoring.",
+      "Active Response — automated IP blocking via iptables upon SSH brute-force and repeated auth failure detection; SIEM-driven response complementing Fail2Ban.",
+      "Network Intrusion Detection (Suricata) — deep packet inspection on the hypervisor bridge with ~50,000 ET rules; EVE JSON alerts parsed natively by Wazuh.",
+      "CIS Benchmark Compliance — automated SCA scanning against CIS Debian 13; risk-based remediation with documented exceptions.",
+      "Network Segmentation — isolated virtual bridge (vmbr1) with iptables FORWARD drop rules; zero inter-segment traffic without explicit permission.",
+      "Hardening Automation (Ansible) — idempotent playbook codifying SSH, kernel, filesystem, and service hardening as infrastructure-as-code.",
+      "TLS / PKI (Smallstep CA) — private Certificate Authority issuing X.509 certificates for internal services; root CA trusted by the management workstation.",
+      "Secrets Management (HashiCorp Vault) — centralized credential storage with Shamir unseal, TLS via internal CA, and KV-v2 secrets engine.",
     ],
     techDetails: [
       { name: "Proxmox VE", description: "Bare-metal Type 1 hypervisor on Debian — hosts all VMs and provides the management API and web GUI" },
@@ -176,8 +212,13 @@ Three IAM measures were combined: TOTP MFA for root via the Proxmox Web GUI, a d
       { name: "Proxmox Firewall", description: "Default Drop policy with logical IP sets; only SSH (22) and Web GUI (8006) open to the management workstation" },
       { name: "SSH / Ed25519", description: "Passwordless key-based authentication with Ed25519; password auth fully disabled in sshd_config" },
       { name: "TOTP MFA", description: "Time-based one-time password for Proxmox Web GUI root access — second factor against credential theft" },
+      { name: "Wazuh", description: "All-in-One SIEM deployment (Manager, Indexer, Dashboard) with agent-based log forwarding, FIM, Active Response, and SCA compliance scanning" },
+      { name: "Suricata", description: "Network IDS on the hypervisor bridge with ~50,000 Emerging Threats rules; EVE JSON alerts integrated into Wazuh" },
+      { name: "Ansible", description: "Infrastructure-as-code hardening playbook automating SSH, kernel, filesystem, and service security baselines" },
+      { name: "Smallstep CA", description: "Private Certificate Authority issuing X.509 certificates for internal services with configurable duration limits" },
+      { name: "HashiCorp Vault", description: "Centralized secrets management with Shamir unseal, TLS via internal CA, and KV-v2 engine for infrastructure credentials" },
     ],
-    note: "No public repository — this is a live infrastructure project running on bare-metal hardware. This project is ongoing. Planned next steps include SIEM integration with Wazuh, red team simulations using a dedicated Kali VM, and DevSecOps pipelines for automated vulnerability scanning.",
+    note: "No public repository — this is a live infrastructure project running on bare-metal hardware. This project is ongoing. Planned next steps include red team simulations using a dedicated Kali VM on the isolated vmbr1 network segment, and DevSecOps pipelines for automated vulnerability scanning.",
   },
   {
     featured: true,
