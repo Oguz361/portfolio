@@ -20,7 +20,7 @@ const content = {
       },
       {
         title: "3. Contact",
-        body: "oguzkaan61@live.de",
+        body: "",
       },
       {
         title: "4. Disclaimer",
@@ -43,7 +43,7 @@ const content = {
       },
       {
         title: "3. Kontakt",
-        body: "oguzkaan61@live.de",
+        body: "",
       },
       {
         title: "4. Haftungsausschluss",
@@ -55,7 +55,10 @@ const content = {
 
 export default function LegalNoticeContent() {
   const [lang, setLang] = useState<"en" | "de">("en")
-  const t = content[lang]
+  const email = ["contact", "@", "oguzkaan.dev"].join("")
+  const t = lang === "en"
+    ? { ...content.en, sections: content.en.sections.map(s => s.title === "3. Contact" ? { ...s, body: email } : s) }
+    : { ...content.de, sections: content.de.sections.map(s => s.title === "3. Kontakt" ? { ...s, body: email } : s) }
 
   return (
     <section className="space-y-6 pt-20">

@@ -12,7 +12,7 @@ const content = {
     sections: [
       {
         title: "1. Controller",
-        body: "Oguz Kaan Öztürk — oguzkaan61@live.de",
+        body: "Oguz Kaan Öztürk — ",
       },
       {
         title: "2. Data Collected",
@@ -44,7 +44,7 @@ const content = {
     sections: [
       {
         title: "1. Verantwortlicher",
-        body: "Oguz Kaan Öztürk — oguzkaan61@live.de",
+        body: "Oguz Kaan Öztürk — ",
       },
       {
         title: "2. Erhobene Daten",
@@ -73,7 +73,10 @@ const content = {
 
 export default function PrivacyPolicyContent() {
   const [lang, setLang] = useState<"en" | "de">("en")
-  const t = content[lang]
+  const email = ["contact", "@", "oguzkaan.dev"].join("")
+  const t = lang === "en"
+    ? { ...content.en, sections: content.en.sections.map(s => s.title === "1. Controller" ? { ...s, body: `Oguz Kaan Öztürk — ${email}` } : s) }
+    : { ...content.de, sections: content.de.sections.map(s => s.title === "1. Verantwortlicher" ? { ...s, body: `Oguz Kaan Öztürk — ${email}` } : s) }
 
   return (
     <section className="space-y-6 pt-20">
