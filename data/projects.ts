@@ -226,7 +226,7 @@ HashiCorp Vault was deployed on the Wazuh VM to centralize all credentials used 
     tagline: "Clinical ML system for surgery complication detection.",
     description: "A clinical ML system for detecting and classifying surgery-related complications, built during an internship at Charité – Universitätsmedizin Berlin.",
     tags: ["Python", "TensorFlow", "scikit-learn", "pandas", "NumPy"],
-    createdAt: "Feb 2024",
+    createdAt: "Feb 2025",
     longDescription: `During an internship at the Department of Urology at Charité – Universitätsmedizin Berlin, I developed a Python-based AI system for the text-based detection and classification of iatrogenic, surgery-related complications. The tool was built as a quality component for a planned joint study between BHT and Charité, and tested against pseudonymized patient records extracted from the hospital's clinical information system (KIS).
 
 The system trains a separate deep neural network for each of five complication types — including ureter fistula, bladder fistula, and urinoma — since each has its own distinct risk profile and class imbalance characteristics. A key challenge was the extreme rarity of some complications (< 2% of cases), which was addressed through SMOTE oversampling, per-class weight tuning, and individually calibrated decision thresholds. Selected flagged cases are subsequently reviewed by urologists for clinical validation.`,
