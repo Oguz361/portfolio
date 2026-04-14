@@ -143,7 +143,7 @@ Wallet connectivity is handled by ThirdwebProvider, supporting MetaMask and Wall
     featured: true,
     title: "Home Lab",
     tagline: "Proxmox hypervisor hardened with Blue Team principles.",
-    description: "A Cyber Security Home Lab built on a bare-metal Proxmox VE hypervisor, hardened step by step following common Blue Team and Security Engineering principles — from forensic logging and intrusion prevention to SIEM deployment, network-based threat detection, compliance scanning, infrastructure automation, and cryptographic trust management.",
+    description: "A Cyber Security Home Lab built on a bare-metal Proxmox VE hypervisor, hardened step by step following Blue Team and Security Engineering principles.",
     tags: ["Proxmox VE", "Linux", "Auditd", "Fail2Ban", "Firewall", "IAM", "Wazuh", "Suricata", "Ansible", "Smallstep CA", "HashiCorp Vault", "CIS Benchmark"],
     createdAt: "Mar 2026",
     longDescription: `As a hands-on learning project, I built a Proxmox VE hypervisor on a bare-metal laptop and hardened it step by step following common Blue Team and Security Engineering principles. The focus wasn't just on the setup itself, but on the reasoning behind every decision — from forensic logging and intrusion prevention to SIEM deployment, network-based threat detection, compliance scanning, infrastructure automation, and cryptographic trust management.
