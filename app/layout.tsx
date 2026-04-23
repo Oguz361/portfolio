@@ -62,6 +62,11 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: FOUC_SCRIPT }} />
+        <script
+          defer
+          src="https://cloud.umami.is/script.js"
+          data-website-id="f23640f3-dd6d-499e-8500-e80c18178f1c"
+        />
       </head>
       <body
         className={`${jetbrainsMono.variable} ${geistMono.variable} antialiased`}
