@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import { FolderOpen } from "lucide-react";
 import ProjectCard from "@/components/ProjectCard";
 import { projects } from "@/data/projects";
+
+export const metadata: Metadata = {
+  title: "Projects",
+  description:
+    "Selected projects in Cyber Security, Home Labs, and Software Development by Oguz Kaan Öztürk.",
+};
 
 export default function ProjectsPage() {
   return (

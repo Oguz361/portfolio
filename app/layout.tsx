@@ -18,8 +18,41 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Oguz Kaan Öztürk",
-  description: "Full-Stack Developer Portfolio",
+  metadataBase: new URL("https://oguzkaan.dev"),
+  title: {
+    default: "Oguz Kaan Öztürk – Cyber Security Analyst",
+    template: "%s | Oguz Kaan Öztürk",
+  },
+  description:
+    "Portfolio of Oguz Kaan Öztürk – full-time Cyber Security Analyst and Media Informatics graduate based in Berlin.",
+  keywords: [
+    "Oguz Kaan Öztürk",
+    "Cyber Security Analyst",
+    "Cybersecurity",
+    "Threat Analysis",
+    "Security Monitoring",
+    "Home Lab",
+    "CTF",
+    "Media Informatics",
+    "Berlin",
+  ],
+  authors: [{ name: "Oguz Kaan Öztürk", url: "https://oguzkaan.dev" }],
+  creator: "Oguz Kaan Öztürk",
+  openGraph: {
+    title: "Oguz Kaan Öztürk – Cyber Security Analyst",
+    description:
+      "Full-time Cyber Security Analyst and Media Informatics graduate based in Berlin.",
+    url: "https://oguzkaan.dev",
+    siteName: "Oguz Kaan Öztürk",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Oguz Kaan Öztürk – Cyber Security Analyst",
+    description:
+      "Full-time Cyber Security Analyst and Media Informatics graduate based in Berlin.",
+  },
 };
 
 const FOUC_SCRIPT = `
